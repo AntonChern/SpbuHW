@@ -1,4 +1,5 @@
 #include <iostream>
+#include <time.h>
 using namespace std;
 
 int pow(int, int);
@@ -7,8 +8,16 @@ void displayArray(int, int n[]);
 
 int main()
 {
-    int amount = 10;
-    int *num = new int[amount] {1, 6, 4, 3, 0, 2, 5, 8, 7, 9};
+    cout << "Enter amount of numbers" << endl;
+    int amount = 0;
+    cin >> amount;
+    int *num = new int[amount] {};
+
+    srand(time(NULL));
+    for (int i = 0; i < amount; i++)
+    {
+        num[i] = rand() % 10;
+    }
 
     cout << "Before - ";
     displayArray(amount, num);
@@ -16,30 +25,34 @@ int main()
     int length = amount;
     int numOfBranches = countNumOfBranches(length);
 
+    int leftBranchIndex = 0;
+    int rightBranchIndex = 0;
     while (length > 1)
     {
         while (numOfBranches > 1)
         {
             for (int i = pow(2, (numOfBranches - 1) - 1) - 1; i < pow(2, numOfBranches - 1) - 1; i++)
             {
-                if (2 * i + 2 == length)
+                leftBranchIndex = 2 * i + 1;
+                rightBranchIndex = 2 * i + 2;
+                if (rightBranchIndex == length)
                 {
-                    if (num[i] < num[2 * i + 1])
+                    if (num[i] < num[leftBranchIndex])
                     {
-                        swap(num[i], num[2 * i + 1]);
+                        swap(num[i], num[leftBranchIndex]);
                     }
                 }
                 else
                 {
-                    if ((2 * i + 1 < length) && (2 * i + 2 < length))
+                    if ((leftBranchIndex < length) && (rightBranchIndex < length))
                     {
-                        if (num[2 * i + 1] < num[2 * i + 2])
+                        if (num[leftBranchIndex] < num[rightBranchIndex])
                         {
-                            swap(num[2 * i + 1], num[2 * i + 2]);
+                            swap(num[leftBranchIndex], num[rightBranchIndex]);
                         }
-                        if (num[i] < num[2 * i + 1])
+                        if (num[i] < num[leftBranchIndex])
                         {
-                            swap(num[i], num[2 * i + 1]);
+                            swap(num[i], num[leftBranchIndex]);
                         }
                     }
                 }
@@ -54,7 +67,7 @@ int main()
     cout << "After  - ";
     displayArray(amount, num);
 
-    delete num;
+    delete[] num;
 }
 
 int pow(int baseNum, int exponent)
