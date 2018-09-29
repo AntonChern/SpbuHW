@@ -47,7 +47,7 @@ int main()
             select++;
         }
     }
-    delete addend;
+    delete[] addend;
 }
 
 void displayAddends(int number, int addend[])
