@@ -1,27 +1,22 @@
 #include <iostream>
 using namespace std;
 
+void sort(int arr[], int);
+
 int main()
 {
-    int amount = 10;
-    int* arr = new int[amount] {2, 4, 9, 3, 7, 5, 8, 1, 4, 6};
+    cout << "Enter amount of numbers" << endl;
+    int amount = 0;
+    cin >> amount;
+    int* arr = new int[amount] {};
 
-    for (int i = amount - 1; i > 1; i--)
-    {
-        for (int j = 0; j < i; j++)
-        {
-            if (arr[j] > arr[j + 1])
-            {
-                swap(arr[j], arr[j + 1]);
-            }
-        }
-    }
-
+    cout << "Enter values of numbers" << endl;
     for (int i = 0; i < amount; i++)
     {
-        cout << arr[i] << " ";
+        cin >> arr[i];
     }
-    cout << endl;
+
+    sort(arr, amount);
 
     int maxRepeat = 0;
     for (int i = amount - 1; i > 0; i--)
@@ -42,5 +37,19 @@ int main()
         cout << "There are no maximum repeating elements" << endl;
     }
 
-    delete arr;
+    delete[] arr;
+}
+
+void sort(int arr[], int amount)
+{
+    for (int i = amount - 1; i > 1; i--)
+    {
+        for (int j = 0; j < i; j++)
+        {
+            if (arr[j] > arr[j + 1])
+            {
+                swap(arr[j], arr[j + 1]);
+            }
+        }
+    }
 }
