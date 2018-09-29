@@ -1,4 +1,5 @@
 #include <iostream>
+#include <time.h>
 using namespace std;
 
 void display(int, int n[]);
@@ -13,6 +14,13 @@ int main()
     for (int i = 0; i < amount; i++)
     {
         cin >> arr[i];
+    }
+
+    srand(time(NULL));
+    for (int i = 0; i < amount; i++)
+    {
+        discharge = rand() % 32 + 11;
+
     }
 
     cout << "Before - ";
