@@ -25,9 +25,9 @@ int main()
         reserveNumber /= 10;
     }
 
-    for (int i = 0; i < numOfDigits; i++)
+    for (int i = numOfDigits - 1; i > 1; i--)
     {
-        for (int j = 0; j < numOfDigits - 1; j++)
+        for (int j = 0; j < i; j++)
         {
             if (digit[j] > digit[j + 1])
             {
@@ -54,5 +54,5 @@ int main()
         cout << digit[i];
     }
 
-    delete digit;
+    delete[] digit;
 }
