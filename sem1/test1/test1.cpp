@@ -1,6 +1,8 @@
 #include <iostream>
 using namespace std;
 
+// difficulty log(n)
+
 void qSort(int, int, int n[]);
 void display(int, int n[]);
 
