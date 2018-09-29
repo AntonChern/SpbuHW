@@ -41,7 +41,7 @@ int main()
         cout << "Guess" << endl;
         cin >> attempt;
 
-        for (int i = 3; i >= 0; i--)
+        for (int i = numOfDigits - 1; i >= 0; i--)
         {
             attemptNum[i] = attempt % 10;
             attempt /= 10;
@@ -50,7 +50,7 @@ int main()
         bulls = 0;
         cows = 0;
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < numOfDigits; i++)
         {
             if (attemptNum[i] == guessNum[i])
             {
@@ -58,9 +58,9 @@ int main()
             }
         }
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < numOfDigits; i++)
         {
-            for (int j = 0; j < 4; j++)
+            for (int j = 0; j < numOfDigits; j++)
             {
                 if ((attemptNum[i] == guessNum[j]) && (i != j))
                 {
@@ -69,7 +69,7 @@ int main()
             }
         }
 
-        if (bulls == 4)
+        if (bulls == numOfDigits)
         {
             isWin = true;
         }
