@@ -46,6 +46,12 @@ int main()
         block++;
         step = -step;
     }
+
+    for (int i = 0; i < amount; i++)
+    {
+        delete[] arr[i];
+    }
+    delete[] arr;
 }
 
 void fillArray(int *arr[], int amount)
