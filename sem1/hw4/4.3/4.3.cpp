@@ -4,7 +4,7 @@ using namespace std;
 int main()
 {
     FILE *file = fopen("file.txt", "r");
-    int EmptyStrings = 0;
+    int emptyStrings = 0;
     char symbol = ' ';
     while (!feof(file))
     {
@@ -20,9 +20,9 @@ int main()
         }
         if (!isEmpty)
         {
-            EmptyStrings++;
+            emptyStrings++;
         }
     }
-    cout << "Number of non-empty strings = " << EmptyStrings << endl;
+    cout << "Number of non-empty strings = " << emptyStrings << endl;
     fclose(file);
 }
