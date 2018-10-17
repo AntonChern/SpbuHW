@@ -12,7 +12,6 @@ int main()
     generateNumber(guessNum, numOfDigits);
 
     int *attemptNum = new int[numOfDigits] {};
-
     cout << "======Bulls and cows======" << endl;
     int bulls = 0;
     int cows = 0;
