@@ -1,5 +1,5 @@
 #include <iostream>
-#include "list.h"
+#include "cycliclist.h"
 using namespace std;
 
 int main()
@@ -7,10 +7,10 @@ int main()
     cout << "Enter amount of warriors" << endl;
     int amount = 0;
     cin >> amount;
-    List *list = createList();
+    CyclicList *cyclicList = createCyclicList();
     for (int i = 1; i <= amount; i++)
     {
-        addElement(list, i);
+        addElement(cyclicList, i);
     }
 
     cout << "Enter dead warrior number" << endl;
@@ -18,19 +18,20 @@ int main()
     cin >> step;
 
     int select = 1;
-    while (size(list) > 1)
+    while (amount > 1)
     {
         select += step - 1;
-        if (select > size(list))
+        if (select > amount)
         {
-            while (select > size(list))
+            while (select > amount)
             {
-                select -= size(list);
+                select -= amount;
             }
         }
-        deleteElement(list, select);
+        deleteElement(cyclicList, select);
+        amount--;
     }
 
-    cout << "With this version will survive warrior " << valueElement(list, 1);
-    deleteList(list);
+    cout << "With this version will survive warrior " << valueElement(cyclicList, 1);
+    deleteCyclicList(cyclicList);
 }
