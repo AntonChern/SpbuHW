@@ -2,22 +2,26 @@
 #include "stack.h"
 using namespace std;
 
-int calculate(string &, Stack *);
+const int maxLength = 256;
+
+int calculate(char *outputLine, Stack *stack);
+int length(char *line);
 
 int main()
 {
     cout << "Enter postfix notation: ";
-    string expression = "";
+    char *expression = new char[maxLength] {};
     cin >> expression;
 
     Stack *stack = createStack();
     cout << "Value = " << calculate(expression, stack);
     deleteStack(stack);
+    delete[] expression;
 }
 
-int calculate(string &outputLine, Stack *stack)
+int calculate(char *outputLine, Stack *stack)
 {
-    int lengthOutputLine = outputLine.length();
+    int lengthOutputLine = length(outputLine);
     for (int i = 0; i < lengthOutputLine; i++)
     {
         switch (outputLine[i])
@@ -63,4 +67,14 @@ int calculate(string &outputLine, Stack *stack)
         }
     }
     return pop(stack);
+}
+
+int length(char *line)
+{
+    int result = 0;
+    for (int i = 0; line[i] != '\0'; i++)
+    {
+        result++;
+    }
+    return result;
 }
