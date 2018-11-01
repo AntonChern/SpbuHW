@@ -13,7 +13,7 @@ void push(Stack *stack, char symbol)
     stack->first = newElement;
 }
 
-int pop(Stack *stack)
+char pop(Stack *stack)
 {
     if (!isEmpty(stack))
     {

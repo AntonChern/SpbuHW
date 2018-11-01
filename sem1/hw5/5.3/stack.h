@@ -14,5 +14,5 @@ struct Stack
 Stack * createStack();
 void deleteStack(Stack *stack);
 void push(Stack *stack, char symbol);
-int pop(Stack *stack);
+char pop(Stack *stack);
 bool isEmpty(Stack *stack);
