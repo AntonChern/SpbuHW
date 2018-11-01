@@ -4,6 +4,7 @@
 using namespace std;
 
 void nullExists(bool exists[]);
+int value(int current);
 
 int main()
 {
@@ -18,9 +19,9 @@ int main()
     {
         if (isalpha(current))
         {
-            if (!exists[current - 'a'])
+            if (!exists[value(current)])
             {
-                exists[current - 'a'] = true;
+                exists[value(current)] = true;
                 cout << current;
             }
             file.get(current);
@@ -42,6 +43,11 @@ void nullExists(bool exists[])
 {
     for (int i = 'a'; i <= 'z'; i++)
     {
-        exists[i - 'a'] = false;
+        exists[value(i)] = false;
     }
+}
+
+int value(int current)
+{
+    return current - 'a';
 }
