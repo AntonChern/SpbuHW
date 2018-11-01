@@ -2,25 +2,31 @@
 #include "stack.h"
 using namespace std;
 
-void postfixNotation(string &, string &, Stack *);
-int priority(int);
+const int maxLength = 256;
+
+void postfixNotation(char *expression, char *outputLine, Stack *stack);
+int priority(char element);
+int length(char *line);
+void completeLine(char *line, char symbol);
 
 int main()
 {
     cout << "Enter infix notation: ";
-    string expression = "";
+    char *expression = new char[maxLength] {};
     cin >> expression;
 
     Stack *stack = createStack();
-    string outputLine = "";
+    char *outputLine = new char[maxLength] {};
     postfixNotation(expression, outputLine, stack);
     cout << "Postfix notation: " << outputLine;
     deleteStack(stack);
+    delete[] expression;
+    delete[] outputLine;
 }
 
-void postfixNotation(string &expression, string &outputLine, Stack *stack)
+void postfixNotation(char *expression, char *outputLine, Stack *stack)
 {
-    int lengthExpression = expression.length();
+    int lengthExpression = length(expression);
     for (int i = 0; i < lengthExpression; i++)
     {
         switch (expression[i])
@@ -36,7 +42,7 @@ void postfixNotation(string &expression, string &outputLine, Stack *stack)
             case '8':
             case '9':
             {
-                outputLine += expression[i];
+                completeLine(outputLine, expression[i]);
                 break;
             }
             case '(':
@@ -46,10 +52,10 @@ void postfixNotation(string &expression, string &outputLine, Stack *stack)
             }
             case ')':
             {
-                int element = pop(stack);
+                char element = pop(stack);
                 while (element != '(')
                 {
-                    outputLine += element;
+                    completeLine(outputLine, element);
                     element = pop(stack);
                 }
                 break;
@@ -61,10 +67,10 @@ void postfixNotation(string &expression, string &outputLine, Stack *stack)
             {
                 if (!isEmpty(stack))
                 {
-                    int element = pop(stack);
+                    char element = pop(stack);
                     while (priority(element) >= priority(expression[i]))
                     {
-                        outputLine += element;
+                        completeLine(outputLine, element);
                         element = pop(stack);
                     }
                     push(stack, element);
@@ -76,11 +82,11 @@ void postfixNotation(string &expression, string &outputLine, Stack *stack)
     }
     while (!isEmpty(stack))
     {
-        outputLine += pop(stack);
+        completeLine(outputLine, pop(stack));
     }
 }
 
-int priority(int element)
+int priority(char element)
 {
     switch (element)
     {
@@ -103,4 +109,26 @@ int priority(int element)
         }
     }
     return -1;
+}
+
+int length(char *line)
+{
+    int result = 0;
+    for (int i = 0; line[i] != '\0'; i++)
+    {
+        result++;
+    }
+    return result;
+}
+
+void completeLine(char *line, char symbol)
+{
+    for (int i = 0; i < maxLength; i++)
+    {
+        if (line[i] == '\0')
+        {
+            line[i] = symbol;
+            return;
+        }
+    }
 }

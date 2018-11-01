@@ -7,9 +7,9 @@ Stack * createStack()
     return new Stack {nullptr};
 }
 
-void push(Stack *stack, int value)
+void push(Stack *stack, char symbol)
 {
-    StackElement *newElement = new StackElement {value, stack->first};
+    StackElement *newElement = new StackElement {symbol, stack->first};
     stack->first = newElement;
 }
 
@@ -17,7 +17,7 @@ int pop(Stack *stack)
 {
     if (!isEmpty(stack))
     {
-        int result = stack->first->value;
+        int result = stack->first->symbol;
         StackElement *newElement = stack->first->next;
         delete stack->first;
         stack->first = newElement;

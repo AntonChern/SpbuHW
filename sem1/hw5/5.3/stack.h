@@ -2,7 +2,7 @@
 
 struct StackElement
 {
-    int value;
+    char symbol;
     StackElement *next;
 };
 
@@ -12,7 +12,7 @@ struct Stack
 };
 
 Stack * createStack();
-void deleteStack(Stack *);
-void push(Stack *, int);
-int pop(Stack *);
-bool isEmpty(Stack *);
+void deleteStack(Stack *stack);
+void push(Stack *stack, char symbol);
+int pop(Stack *stack);
+bool isEmpty(Stack *stack);
