@@ -1,6 +1,4 @@
 #include <iostream>
-#include "intstack.h"
-#include "charstack.h"
 #include "calculator.h"
 using namespace std;
 
