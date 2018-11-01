@@ -1,21 +1,47 @@
 #include <iostream>
+#include <fstream>
+#include <ctype.h>
 using namespace std;
+
+void nullExists(bool exists[]);
 
 int main()
 {
-    FILE *file = fopen("file.txt", "r");
-    char symbol = ' ';
+    int numOfLetters = 26;
+    bool exists[numOfLetters] = {};
+    nullExists(exists);
+    char nameOfFile[] = {"file.txt"};
+    ifstream file(nameOfFile);
     char current = ' ';
-    fscanf(file, "%c", &current);
-    while (!feof(file))
+    file.get(current);
+    while (!file.eof())
     {
-        symbol = current;
-        fscanf(file, "%c", &current);
-        while ((current == symbol) && (!feof(file)))
+        if (isalpha(current))
         {
-            fscanf(file, "%c", &current);
+            if (!exists[current - 'a'])
+            {
+                exists[current - 'a'] = true;
+                cout << current;
+            }
+            file.get(current);
         }
-        cout << symbol;
+        else
+        {
+            nullExists(exists);
+            while ((!isalpha(current)) && (!file.eof()))
+            {
+                file.get(current);
+            }
+            cout << ' ';
+        }
     }
-    fclose(file);
+    file.close();
+}
+
+void nullExists(bool exists[])
+{
+    for (int i = 'a'; i <= 'z'; i++)
+    {
+        exists[i - 'a'] = false;
+    }
 }
