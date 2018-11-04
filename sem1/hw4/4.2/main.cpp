@@ -2,10 +2,10 @@
 #include "phonebook.h"
 using namespace std;
 
-void executeCommandOne(PhoneBook *phoneBook);
-void executeCommandTwo(PhoneBook *phoneBook);
-void executeCommandThree(PhoneBook *phoneBook);
-void executeCommandFour(PhoneBook *phoneBook, char nameFile[]);
+void addRecord(PhoneBook *phoneBook);
+void findNumberByName(PhoneBook *phoneBook);
+void findNameByNumber(PhoneBook *phoneBook);
+void save(PhoneBook *phoneBook, char nameFile[]);
 
 int main()
 {
@@ -27,22 +27,22 @@ int main()
         {
             case 1:
             {
-                executeCommandOne(phoneBook);
+                addRecord(phoneBook);
                 break;
             }
             case 2:
             {
-                executeCommandTwo(phoneBook);
+                findNumberByName(phoneBook);
                 break;
             }
             case 3:
             {
-                executeCommandThree(phoneBook);
+                findNameByNumber(phoneBook);
                 break;
             }
             case 4:
             {
-                executeCommandFour(phoneBook, nameFile);
+                save(phoneBook, nameFile);
                 break;
             }
         }
@@ -50,7 +50,7 @@ int main()
     deletePhoneBook(phoneBook);
 }
 
-void executeCommandOne(PhoneBook *phoneBook)
+void addRecord(PhoneBook *phoneBook)
 {
     cout << "Enter name: ";
     char *name = new char[maxLength] {};
@@ -62,7 +62,7 @@ void executeCommandOne(PhoneBook *phoneBook)
     cout << "Record added" << endl << endl;
 }
 
-void executeCommandTwo(PhoneBook *phoneBook)
+void findNumberByName(PhoneBook *phoneBook)
 {
     cout << "Enter name: ";
     char *name = new char[maxLength] {};
@@ -72,7 +72,7 @@ void executeCommandTwo(PhoneBook *phoneBook)
     cout << endl << endl;
 }
 
-void executeCommandThree(PhoneBook *phoneBook)
+void findNameByNumber(PhoneBook *phoneBook)
 {
     cout << "Enter number: ";
     char *number = new char[maxLength] {};
@@ -82,7 +82,7 @@ void executeCommandThree(PhoneBook *phoneBook)
     cout << endl << endl;
 }
 
-void executeCommandFour(PhoneBook *phoneBook, char nameFile[])
+void save(PhoneBook *phoneBook, char nameFile[])
 {
     copyIntoFile(phoneBook, nameFile);
     cout << "Data saved" << endl << endl;

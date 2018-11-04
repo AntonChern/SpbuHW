@@ -3,6 +3,19 @@
 #include "phonebook.h"
 using namespace std;
 
+struct ElementPhoneBook
+{
+    char *name;
+    char *number;
+    bool saved;
+    ElementPhoneBook *next;
+};
+
+struct PhoneBook
+{
+    ElementPhoneBook *first;
+};
+
 PhoneBook *createPhoneBook()
 {
     return new PhoneBook {nullptr};
@@ -20,7 +33,7 @@ void findName(PhoneBook *phoneBook, char *number)
     bool exists = false;
     while (current)
     {
-        if (isEqual(current->number, number) && (current->saved))
+        if (isEqual(current->number, number))
         {
             cout << current->name << ' ';
             exists = true;
@@ -39,7 +52,7 @@ void findNumber(PhoneBook *phoneBook, char *name)
     bool exists = false;
     while (current)
     {
-        if (isEqual(current->name, name) && (current->saved))
+        if (isEqual(current->name, name))
         {
             cout << current->number << ' ';
             exists = true;

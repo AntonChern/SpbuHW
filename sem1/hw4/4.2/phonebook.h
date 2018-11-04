@@ -1,17 +1,7 @@
 #pragma once
 
-struct ElementPhoneBook
-{
-    char *name;
-    char *number;
-    bool saved;
-    ElementPhoneBook *next;
-};
-
-struct PhoneBook
-{
-    ElementPhoneBook *first;
-};
+struct ElementPhoneBook;
+struct PhoneBook;
 
 PhoneBook *createPhoneBook();
 void addRecord(PhoneBook *phoneBook, char *name, char *number, bool saved);
