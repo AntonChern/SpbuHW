@@ -11,15 +11,22 @@ int main()
     double original = 0;
     cin >> original;
     cout << "Result: ";
-    unsigned long long int *number = (unsigned long long int *)&original;
+    if (original == 0)
+    {
+        cout << "0";
+    }
+    else
+    {
+        unsigned long long int *number = (unsigned long long int *)&original;
 
-    unsigned long long int mask = 0x800FFFFFFFFFFFFF;
-    unsigned long long int nullMantissa = ((*number & mask) + maskNullExponent);
-    double *mantissa = (double *)&nullMantissa;
-    cout << *mantissa << "*2^";
+        unsigned long long int mask = 0x800FFFFFFFFFFFFF;
+        unsigned long long int nullMantissa = ((*number & mask) + maskNullExponent);
+        double *mantissa = (double *)&nullMantissa;
+        cout << *mantissa << "*2^";
 
-    mask = 0x7FF0000000000000;
-    unsigned long long int transformedExponent = ((*number & mask) >> bitsOfMantissa) - offsetExponent;
-    long long int *exponent = (long long int *)&transformedExponent;
-    cout << *exponent;
+        mask = 0x7FF0000000000000;
+        unsigned long long int transformedExponent = ((*number & mask) >> bitsOfMantissa) - offsetExponent;
+        long long int *exponent = (long long int *)&transformedExponent;
+        cout << *exponent;
+    }
 }
