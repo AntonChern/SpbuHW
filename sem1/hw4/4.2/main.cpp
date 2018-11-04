@@ -70,6 +70,7 @@ void findNumberByName(PhoneBook *phoneBook)
     cout << "Its number: ";
     findNumber(phoneBook, name);
     cout << endl << endl;
+    delete[] name;
 }
 
 void findNameByNumber(PhoneBook *phoneBook)
@@ -80,6 +81,7 @@ void findNameByNumber(PhoneBook *phoneBook)
     cout << "Its name: ";
     findName(phoneBook, number);
     cout << endl << endl;
+    delete[] number;
 }
 
 void save(PhoneBook *phoneBook, char nameFile[])
