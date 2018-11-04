@@ -79,6 +79,7 @@ int main()
             existsMaxDeg = true;
         }
     }
+    delete[] coef;
 }
 
 int numOfDigits(int number)
