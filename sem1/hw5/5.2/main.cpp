@@ -4,7 +4,7 @@
 using namespace std;
 
 void nullExists(bool exists[]);
-int value(int current);
+int symbolIndex(char current);
 
 int main()
 {
@@ -19,9 +19,9 @@ int main()
     {
         if (isalpha(current))
         {
-            if (!exists[value(current)])
+            if (!exists[symbolIndex(current)])
             {
-                exists[value(current)] = true;
+                exists[symbolIndex(current)] = true;
                 cout << current;
             }
             file.get(current);
@@ -43,11 +43,11 @@ void nullExists(bool exists[])
 {
     for (int i = 'a'; i <= 'z'; i++)
     {
-        exists[value(i)] = false;
+        exists[symbolIndex(i)] = false;
     }
 }
 
-int value(int current)
+int symbolIndex(char current)
 {
     return current - 'a';
 }
