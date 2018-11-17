@@ -82,43 +82,46 @@ void specifyLeftChild(Node *&node, Node *&leftChild)
 
 void deleteElement(Node *&node, int value)
 {
-    if (value == node->value)
+    if (node)
     {
-        Node *deletedElement = node;
-        if ((node->leftChild) && (node->rightChild))
+        if (value == node->value)
         {
-            node = deletedElement->rightChild;
-            specifyLeftChild(node, deletedElement->leftChild);
-        }
-        else
-        {
-            if ((node->leftChild) || (node->rightChild))
+            Node *deletedElement = node;
+            if ((node->leftChild) && (node->rightChild))
             {
-                node = nullptr;
+                node = deletedElement->rightChild;
+                specifyLeftChild(node, deletedElement->leftChild);
             }
             else
             {
-                if (node->leftChild)
+                if (!((node->leftChild) || (node->rightChild)))
                 {
-                    node = deletedElement->leftChild;
+                    node = nullptr;
                 }
                 else
                 {
-                    node = deletedElement->rightChild;
+                    if (node->leftChild)
+                    {
+                        node = deletedElement->leftChild;
+                    }
+                    else
+                    {
+                        node = deletedElement->rightChild;
+                    }
                 }
             }
-        }
-        delete deletedElement;
-    }
-    else
-    {
-        if (value > node->value)
-        {
-            deleteElement(node->rightChild, value);
+            delete deletedElement;
         }
         else
         {
-            deleteElement(node->leftChild, value);
+            if (value > node->value)
+            {
+                deleteElement(node->rightChild, value);
+            }
+            else
+            {
+                deleteElement(node->leftChild, value);
+            }
         }
     }
 }
