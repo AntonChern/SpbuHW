@@ -2,6 +2,24 @@
 #include "avltreeset.h"
 using namespace std;
 
+struct AVLset
+{
+    BinaryTree *tree;
+};
+
+AVLset *createSet()
+{
+    BinaryTree *tree = createBinaryTree();
+    return new AVLset {tree};
+}
+
+void deleteSet(AVLset *set)
+{
+    deleteBinaryTree(set->tree);
+    delete set;
+}
+
+
 struct BinaryTree
 {
     Node *root;
@@ -126,9 +144,9 @@ void addElement(Node *&node, int value)
     node = balance(node);
 }
 
-void addElement(BinaryTree *tree, int value)
+void addElement(AVLset *set, int value)
 {
-    addElement(tree->root, value);
+    addElement(set->tree->root, value);
 }
 
 Node *specifyLeftChild(Node *&node)
@@ -196,14 +214,14 @@ void deleteElement(Node *&node, int value)
     }
 }
 
-void deleteElement(BinaryTree *tree, int value)
+void deleteElement(AVLset *set, int value)
 {
-    deleteElement(tree->root, value);
+    deleteElement(set->tree->root, value);
 }
 
-bool exists(BinaryTree *tree, int value)
+bool exists(AVLset *set, int value)
 {
-    Node *foundElement = tree->root;
+    Node *foundElement = set->tree->root;
     while (foundElement)
     {
         if (value == foundElement->value)
@@ -238,11 +256,11 @@ void displayIncrease(Node *&node)
     }
 }
 
-void displayIncrease(BinaryTree *tree)
+void displayIncrease(AVLset *set)
 {
-    if (tree->root)
+    if (set->tree->root)
     {
-        displayIncrease(tree->root);
+        displayIncrease(set->tree->root);
     }
 }
 
@@ -259,11 +277,11 @@ void displayDescend(Node *&node)
     }
 }
 
-void displayDescend(BinaryTree *tree)
+void displayDescend(AVLset *set)
 {
-    if (tree->root)
+    if (set->tree->root)
     {
-        displayDescend(tree->root);
+        displayDescend(set->tree->root);
     }
 }
 
@@ -290,10 +308,10 @@ void displayDirect(Node *&node)
     }
 }
 
-void displayDirect(BinaryTree *tree)
+void displayDirect(AVLset *set)
 {
-    if (tree->root)
+    if (set->tree->root)
     {
-        displayDirect(tree->root);
+        displayDirect(set->tree->root);
     }
 }
