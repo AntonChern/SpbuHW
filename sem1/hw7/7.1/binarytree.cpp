@@ -90,9 +90,8 @@ void deleteElement(Node *&node, int value)
             if ((node->leftChild) && (node->rightChild))
             {
                 deletedElement = specifyLeftChild(node->rightChild);
-                int value = deletedElement->value;
-                deleteElement(node, deletedElement->value);
-                node->value = value;
+                node->value = deletedElement->value;
+                deleteElement(node->rightChild, deletedElement->value);
                 return;
             }
             else

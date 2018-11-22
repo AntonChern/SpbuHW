@@ -1,5 +1,6 @@
 #include <iostream>
 #include "binarytree.h"
+#include "bstset.h"
 using namespace std;
 
 struct BSTset
