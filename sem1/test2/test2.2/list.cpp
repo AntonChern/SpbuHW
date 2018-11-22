@@ -13,13 +13,6 @@ struct List
     ListElement *first;
 };
 
-void swap(ListElement *first, ListElement *second)
-{
-    int pilot = first->value;
-    first->value = second->value;
-    second->value = pilot;
-}
-
 void sort(ListElement *element)
 {
     if (element->next)
