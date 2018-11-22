@@ -11,5 +11,5 @@ int hashInt(HashTable *hashTable, char symbols[]);
 void addRecord(HashTable *&hashTable, char symbols[]);
 double loadFactor(HashTable *hashTable);
 
-void displayAnswer(HashTable *hashTable);
+void displayWordsAndAmounts(HashTable *hashTable);
 void displaySamplesAndCells(HashTable *hashTable);

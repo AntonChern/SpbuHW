@@ -26,7 +26,7 @@ int main()
             addRecord(hashTable, word);
         }
     }
-    displayAnswer(hashTable);
+    displayWordsAndAmounts(hashTable);
     cout << endl;
     cout << "Load factor = " << loadFactor(hashTable) << endl;
     displaySamplesAndCells(hashTable);

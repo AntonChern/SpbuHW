@@ -146,7 +146,7 @@ double loadFactor(HashTable *hashTable)
     return (double)hashTable->size / hashTable->capacity;
 }
 
-void displayAnswer(HashTable *hashTable)
+void displayWordsAndAmounts(HashTable *hashTable)
 {
     cout << "Words and their amounts:" << endl;
     for (int i = 0; i < hashTable->capacity; i++)
