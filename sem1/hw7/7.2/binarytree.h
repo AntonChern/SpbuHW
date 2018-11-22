@@ -1,10 +1,5 @@
 #pragma once
 
-struct AVLset;
-
-AVLset *createSet();
-void deleteSet(AVLset *set);
-
 struct BinaryTree;
 struct Node;
 
@@ -18,9 +13,10 @@ Node *rotateLeft(Node *&root);
 Node *rotateRight(Node *&root);
 Node* balance(Node *&node);
 
-void addElement(AVLset *set, int value);
-void deleteElement(AVLset *set, int value);
-bool exists(AVLset *set, int value);
-void displayIncrease(AVLset *set);
-void displayDescend(AVLset *set);
-void displayDirect(AVLset *set);
+void addElement(BinaryTree *tree, int value);
+void deleteElement(BinaryTree *tree, int value);
+void deleteElement(Node *&node, int value);
+bool exists(BinaryTree *tree, int value);
+void displayIncrease(BinaryTree *tree);
+void displayDescend(BinaryTree *tree);
+void displayDirect(BinaryTree *tree);
