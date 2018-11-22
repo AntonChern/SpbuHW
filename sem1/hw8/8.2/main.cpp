@@ -67,6 +67,7 @@ int main()
                     cout << "Strings aren't equal";
                 }
                 cout << endl << endl;
+                deleteString(newString);
                 break;
             }
             case 4:
@@ -98,6 +99,7 @@ int main()
                 cout << "The substring is selected - ";
                 displayString(substring);
                 cout << endl << endl;
+                deleteString(substring);
                 break;
             }
             case 7:

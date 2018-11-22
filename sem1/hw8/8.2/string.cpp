@@ -112,11 +112,7 @@ int lengthString(String *string)
 
 bool isEmpty(String *string)
 {
-    if (string->symbols[0] == '\0')
-    {
-        return true;
-    }
-    return false;
+    return !string->symbols[0];
 }
 
 String *selectSubstring(String *string, int firstIndex, int lastIndex)
@@ -140,3 +136,5 @@ char *convertToChar(String *string)
     }
     return result;
 }
+
+
