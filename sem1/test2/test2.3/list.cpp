@@ -49,7 +49,7 @@ void assign(ListElement *first, ListElement *second)
     int length = lengthSurname(second);
     for (int i = 0; i < length; i++)
     {
-        first[i] = second[i];
+        first->surname[i] = second->surname[i];
     }
 }
 
@@ -156,7 +156,7 @@ void displayList(List *list)
     ListElement *current = list->first;
     while (current)
     {
-        cout << current->surname << " " << current->loyalty << endl;
+        cout << current->surname << endl;
         current = current->next;
     }
     cout << endl;

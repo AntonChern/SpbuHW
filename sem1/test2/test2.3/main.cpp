@@ -12,9 +12,8 @@ int main()
     cin >> m;
     const char *nameOfFile = "file.txt";
     fullListFromFile(list, nameOfFile);
-    displayList(list);
     sortListDanger(list);
-    displayList(list);
+    cout << endl;
     cout << "Shot people:" << endl;
     for (int i = 0; i < n; i++)
     {
