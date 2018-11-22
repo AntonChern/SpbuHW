@@ -1,5 +1,5 @@
 #include <iostream>
-#include "binarytreeset.h"
+#include "bstset.h"
 using namespace std;
 
 int main()
@@ -77,3 +77,4 @@ int main()
     while (command);
     deleteSet(set);
 }
+

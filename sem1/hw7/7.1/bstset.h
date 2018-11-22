@@ -5,12 +5,6 @@ struct BSTset;
 BSTset *createSet();
 void deleteSet(BSTset *set);
 
-struct BinaryTree;
-struct Node;
-
-BinaryTree *createBinaryTree();
-void deleteBinaryTree(BinaryTree *tree);
-
 void addElement(BSTset *set, int value);
 void deleteElement(BSTset *set, int value);
 bool exists(BSTset *set, int value);
