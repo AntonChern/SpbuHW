@@ -13,7 +13,7 @@ int main()
     cout << "6 - print by direct bypass" << endl << endl;
     int command = -1;
 
-    BinaryTree *tree = createBinaryTree();
+    BSTset *set = createSet();
 
     do
     {
@@ -26,7 +26,7 @@ int main()
                 cout << "Enter value" << endl;
                 int value = 0;
                 cin >> value;
-                addElement(tree, value);
+                addElement(set, value);
                 cout << "Value added" << endl << endl;
                 break;
             }
@@ -35,7 +35,7 @@ int main()
                 cout << "Enter value" << endl;
                 int value = 0;
                 cin >> value;
-                deleteElement(tree, value);
+                deleteElement(set, value);
                 cout << "Value deleted" << endl << endl;
                 break;
             }
@@ -44,7 +44,7 @@ int main()
                 cout << "Enter value" << endl;
                 int value = 0;
                 cin >> value;
-                if (exists(tree, value))
+                if (exists(set, value))
                 {
                     cout << "Value is contained" << endl << endl;
                 }
@@ -56,24 +56,24 @@ int main()
             }
             case 4:
             {
-                displayIncrease(tree);
+                displayIncrease(set);
                 cout << endl << endl;
                 break;
             }
             case 5:
             {
-                displayDescend(tree);
+                displayDescend(set);
                 cout << endl << endl;
                 break;
             }
             case 6:
             {
-                displayDirect(tree);
+                displayDirect(set);
                 cout << endl << endl;
                 break;
             }
         }
     }
     while (command);
-    deleteBinaryTree(tree);
+    deleteSet(set);
 }

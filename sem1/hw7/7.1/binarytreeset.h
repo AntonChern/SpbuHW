@@ -1,14 +1,19 @@
 #pragma once
 
+struct BSTset;
+
+BSTset *createSet();
+void deleteSet(BSTset *set);
+
 struct BinaryTree;
 struct Node;
 
 BinaryTree *createBinaryTree();
 void deleteBinaryTree(BinaryTree *tree);
 
-void addElement(BinaryTree *tree, int value);
-void deleteElement(BinaryTree *tree, int value);
-bool exists(BinaryTree *tree, int value);
-void displayIncrease(BinaryTree *tree);
-void displayDescend(BinaryTree *tree);
-void displayDirect(BinaryTree *tree);
+void addElement(BSTset *set, int value);
+void deleteElement(BSTset *set, int value);
+bool exists(BSTset *set, int value);
+void displayIncrease(BSTset *set);
+void displayDescend(BSTset *set);
+void displayDirect(BSTset *set);
