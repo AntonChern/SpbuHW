@@ -3,6 +3,8 @@
 #include "hashtable.h"
 using namespace std;
 
+const int maxLength = 256;
+
 int main()
 {
     const char nameOfFile[] = {"file.txt"};
