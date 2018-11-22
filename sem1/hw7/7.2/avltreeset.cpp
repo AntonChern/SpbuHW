@@ -1,5 +1,5 @@
 #include <iostream>
-#include "avltree.h"
+#include "avltreeset.h"
 using namespace std;
 
 struct BinaryTree
@@ -131,15 +131,17 @@ void addElement(BinaryTree *tree, int value)
     addElement(tree->root, value);
 }
 
-void specifyLeftChild(Node *&node, Node *&leftChild)
+Node *specifyLeftChild(Node *&node)
 {
     if (!node->leftChild)
     {
-        node->leftChild = leftChild;
+        Node *current = node;
+        node = nullptr;
+        return current;
     }
     else
     {
-        specifyLeftChild(node->leftChild, leftChild);
+        specifyLeftChild(node->leftChild);
     }
 }
 
@@ -152,8 +154,9 @@ void deleteElement(Node *&node, int value)
             Node *deletedElement = node;
             if ((node->leftChild) && (node->rightChild))
             {
-                node = deletedElement->rightChild;
-                specifyLeftChild(node, deletedElement->leftChild);
+                node = specifyLeftChild(node->rightChild);
+                node->leftChild = deletedElement->leftChild;
+                node->rightChild = deletedElement->rightChild;
             }
             else
             {
