@@ -5,7 +5,7 @@ using namespace std;
 
 struct Graph
 {
-    int ribs;
+    int ways;
     int vertexes;
     bool *select;
     int **graph;
@@ -35,13 +35,13 @@ Graph *createGraph(const char *nameOfFile)
     ifstream file(nameOfFile);
     char symbol = '\0';
     file.get(symbol);
-    graph->ribs = readNumber(file, symbol);
+    graph->ways = readNumber(file, symbol);
     graph->vertexes = readNumber(file, symbol);
     graph->select = new bool[graph->vertexes] {};
     graph->graph = new int *[graph->vertexes] {};
     for (int i = 0; i < graph->vertexes; i++)
     {
-        graph->graph[i] = new int[graph->ribs] {};
+        graph->graph[i] = new int[graph->ways] {};
     }
     file.close();
     return graph;
@@ -59,7 +59,7 @@ void fillGraph(Graph *graph, const char *nameOfFile)
     file.get(symbol);
     for (int i = 0; i < graph->vertexes; i++)
     {
-        for (int j = 0; j < graph->ribs; j++)
+        for (int j = 0; j < graph->ways; j++)
         {
             graph->graph[i][j] = readNumber(file, symbol);
         }
@@ -70,7 +70,7 @@ void fillGraph(Graph *graph, const char *nameOfFile)
 void findVertex(Graph *graph, int indexOfVertex, bool *visited)
 {
     visited[indexOfVertex] = true;
-    for (int i = 0; i < graph->ribs; i++)
+    for (int i = 0; i < graph->ways; i++)
     {
         if (graph->graph[indexOfVertex][i] == -1)
         {
