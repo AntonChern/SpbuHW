@@ -57,6 +57,7 @@ void increaseCapacity(HashTable *&hashTable)
                 {
                     addRecord(newHashTable, symbols);
                 }
+                delete[] symbols;
             }
         }
         HashTable *deletedHashTable = hashTable;
@@ -134,6 +135,25 @@ double loadFactor(HashTable *hashTable)
     return (double)hashTable->size / hashTable->capacity;
 }
 
+bool exists(HashTable *hashTable, char *symbols)
+{
+    int key = hashInt(hashTable, symbols);
+    String *argument = createString(symbols);
+    int step = 1;
+    while (hashTable->buckets[key]->string)
+    {
+        if (isEqual(hashTable->buckets[key]->string, argument))
+        {
+            deleteString(argument);
+            return true;
+        }
+        key = (key + step * step) % hashTable->capacity;
+        step++;
+    }
+    deleteString(argument);
+    return false;
+}
+
 void displayWordsAndAmounts(HashTable *hashTable)
 {
     cout << "Words and their amounts:" << endl;
@@ -176,13 +196,9 @@ void displaySamplesAndCells(HashTable *hashTable)
 
     cout << endl << "Maximum sample - " << maxSample << endl;
     cout << "Values with the maximum number of samples:" << endl;
-    char *symbols = convertToChar(maxSampleString);
-    char maxSymbols[maxLength] = {};
-    for (int i = 0; symbols[i] != '\0'; i++)
-    {
-        maxSymbols[i] = symbols[i];
-    }
+    char *maxSymbols = convertToChar(maxSampleString);
     int maxKey = hashInt(hashTable, maxSymbols);
+    delete[] maxSymbols;
     for (int i = 0; i < maxSample - 1; i++)
     {
         maxKey = (maxKey + i * i) % hashTable->capacity;
