@@ -52,24 +52,15 @@ void rabinKarp(char *string, char *substring)
     int lengthOfString = len(string);
     int lengthOfSubstring = len(substring);
     int hashSubstring = hashChar(substring);
-    int odd = 1;
-    for (int i = 0; i < lengthOfSubstring - 1; i++)
-    {
-        odd *= argument;
-    }
     char *sample = new char[maxLength] {};
-    for (int i = 0; i < lengthOfSubstring; i++)
-    {
-        sample[i] = string[i];
-    }
-    int hashSample = hashChar(sample);
     bool exists = false;
     for (int i = 0; i < lengthOfString - lengthOfSubstring + 1; i++)
     {
-        if (i != 0)
+        for (int j = 0; j < lengthOfSubstring; j++)
         {
-            hashSample = (((hashSample - string[i - 1] * odd) % module + module) * argument + string[i + lengthOfSubstring - 1]) % module;
+            sample[j] = string[i + j];
         }
+        int hashSample = hashChar(sample);
         if (hashSample == hashSubstring)
         {
             exists = true;
