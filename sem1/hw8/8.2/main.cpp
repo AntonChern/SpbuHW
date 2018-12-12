@@ -17,9 +17,10 @@ int main()
     cout << "8 - display string" << endl << endl;
 
     cout << "Enter symbols: ";
-    char symbols[maxLength] = {};
+    char *symbols = new char[maxLength] {};
     cin >> symbols;
     String *string = createString(symbols);
+    delete[] symbols;
     cout << "String created" << endl << endl;
 
     int command = -1;
@@ -42,9 +43,10 @@ int main()
             case 2:
             {
                 cout << "Enter symbols: ";
-                char symbols[maxLength] = {};
+                char *symbols = new char[maxLength] {};
                 cin >> symbols;
                 String *argument = createString(symbols);
+                delete[] symbols;
                 concatenate(string, argument);
                 cout << "String concatenated - ";
                 displayString(string);
@@ -55,9 +57,10 @@ int main()
             case 3:
             {
                 cout << "Enter symbols: ";
-                char symbols[maxLength] = {};
+                char *symbols = new char[maxLength] {};
                 cin >> symbols;
                 String *newString = createString(symbols);
+                delete[] symbols;
                 if (isEqual(string, newString))
                 {
                     cout << "Strings are equal";

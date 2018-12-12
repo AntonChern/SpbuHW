@@ -35,7 +35,7 @@ void increaseCapacity(String *string, int length)
     }
 }
 
-String *createString(char symbols[])
+String *createString(char *symbols)
 {
     String *string = new String {};
     string->capacity = 10;
