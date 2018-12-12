@@ -38,10 +38,10 @@ Graph *createGraph(const char *nameOfFile)
     graph->ways = readNumber(file, symbol);
     graph->vertexes = readNumber(file, symbol);
     graph->select = new bool[graph->vertexes] {};
-    graph->graph = new int *[graph->vertexes] {};
-    for (int i = 0; i < graph->vertexes; i++)
+    graph->graph = new int *[graph->ways] {};
+    for (int i = 0; i < graph->ways; i++)
     {
-        graph->graph[i] = new int[graph->ways] {};
+        graph->graph[i] = new int[graph->vertexes] {};
     }
     file.close();
     return graph;
@@ -61,7 +61,7 @@ void fillGraph(Graph *graph, const char *nameOfFile)
     {
         for (int j = 0; j < graph->ways; j++)
         {
-            graph->graph[i][j] = readNumber(file, symbol);
+            graph->graph[j][i] = readNumber(file, symbol);
         }
     }
     file.close();
@@ -72,11 +72,11 @@ void findVertex(Graph *graph, int indexOfVertex, bool *visited)
     visited[indexOfVertex] = true;
     for (int i = 0; i < graph->ways; i++)
     {
-        if (graph->graph[indexOfVertex][i] == -1)
+        if (graph->graph[i][indexOfVertex] == -1)
         {
             for (int j = 0; j < graph->vertexes; j++)
             {
-                if (graph->graph[j][i] == 1 && !visited[j])
+                if (graph->graph[i][j] == 1 && !visited[j])
                 {
                     findVertex(graph, j, visited);
                 }
@@ -139,11 +139,23 @@ void displayVertexes(Graph *graph)
 
 void deleteGraph(Graph *graph)
 {
-    for (int i = 0; i < graph->vertexes; i++)
+    for (int i = 0; i < graph->ways; i++)
     {
         delete[] graph->graph[i];
     }
     delete[] graph->graph;
     delete[] graph->select;
     delete graph;
+}
+
+void displayGraph(Graph *graph)
+{
+    for (int i = 0; i < graph->vertexes; i++)
+    {
+        for (int j = 0; j < graph->ways; j++)
+        {
+            cout << graph->graph[j][i] << " ";
+        }
+        cout << endl;
+    }
 }
