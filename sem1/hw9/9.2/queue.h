@@ -1,14 +1,14 @@
 #pragma once
 
-struct ListElement;
-struct List;
+struct QueueElement;
+struct Queue;
 
-List *createList();
-void deleteList(List *list);
+Queue *createQueue();
+void deleteQueue(Queue *queue);
 
-void addElement(List *list, char symbol);
-void fillList(List *list, const char *nameOfInputFile);
-void displayList(List *list);
-void convertToTree(List *list);
-void addCodes(List *list);
-void fillFile(List *list, const char *nameOfInputFile, const char *nameOfOutputFile);
+void addElement(Queue *queue, char symbol);
+void fillQueue(Queue *queue, const char *nameOfInputFile);
+void displayQueue(Queue *queue);
+void convertToTree(Queue *queue);
+void addCodes(Queue *queue);
+void fillFile(Queue *queue, const char *nameOfInputFile, const char *nameOfOutputFile);

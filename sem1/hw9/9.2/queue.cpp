@@ -1,43 +1,43 @@
 #include <iostream>
 #include <fstream>
-#include "list.h"
+#include "queue.h"
 #include "binarytree.h"
 using namespace std;
 
-struct ListElement
+struct QueueElement
 {
     int priority;
     BinaryTree *tree;
-    ListElement *next;
+    QueueElement *next;
 };
 
-struct List
+struct Queue
 {
-    ListElement *first;
+    QueueElement *first;
 };
 
-List *createList()
+Queue *createQueue()
 {
-    return new List {nullptr};
+    return new Queue {nullptr};
 }
 
-void deleteList(List *list)
+void deleteQueue(Queue *queue)
 {
-    while (list->first)
+    while (queue->first)
     {
-        ListElement *deletedElement = list->first;
-        deleteBinaryTree(list->first->tree);
-        list->first = list->first->next;
+        QueueElement *deletedElement = queue->first;
+        deleteBinaryTree(queue->first->tree);
+        queue->first = queue->first->next;
         delete deletedElement;
     }
-    delete list;
+    delete queue;
 }
 
-void putOnPlace(ListElement *&element)
+void putOnPlace(QueueElement *&element)
 {
     if (element->next && element->priority > element->next->priority)
     {
-        ListElement *current = element->next;
+        QueueElement *current = element->next;
         element->next = current->next;
         current->next = element;
         element = current;
@@ -45,9 +45,9 @@ void putOnPlace(ListElement *&element)
     }
 }
 
-bool exists(List *list, char symbol)
+bool exists(Queue *queue, char symbol)
 {
-    ListElement *current = list->first;
+    QueueElement *current = queue->first;
     while (current)
     {
         if (symbolOf(current->tree) == symbol)
@@ -59,7 +59,7 @@ bool exists(List *list, char symbol)
     return false;
 }
 
-void incrementPriority(ListElement *&element, char symbol)
+void incrementPriority(QueueElement *&element, char symbol)
 {
     if (symbolOf(element->tree) == symbol)
     {
@@ -73,37 +73,37 @@ void incrementPriority(ListElement *&element, char symbol)
     }
 }
 
-void addElement(List *list, char symbol)
+void addElement(Queue *queue, char symbol)
 {
-    if (exists(list, symbol))
+    if (exists(queue, symbol))
     {
-        incrementPriority(list->first, symbol);
+        incrementPriority(queue->first, symbol);
     }
     else
     {
         BinaryTree *tree = createBinaryTree(symbol);
-        ListElement *newElement = new ListElement {1, tree, list->first};
-        list->first = newElement;
-        putOnPlace(list->first);
+        QueueElement *newElement = new QueueElement {1, tree, queue->first};
+        queue->first = newElement;
+        putOnPlace(queue->first);
     }
 }
 
-void fillList(List *list, const char *nameOfInputFile)
+void fillQueue(Queue *queue, const char *nameOfInputFile)
 {
     ifstream file(nameOfInputFile);
     char symbol = '\0';
     file.get(symbol);
     while (!file.eof())
     {
-        addElement(list, symbol);
+        addElement(queue, symbol);
         file.get(symbol);
     }
     file.close();
 }
 
-void displayList(List *list)
+void displayQueue(Queue *queue)
 {
-    ListElement *current = list->first;
+    QueueElement *current = queue->first;
     while (current)
     {
         cout << symbolOf(current->tree) << " -> " << current->priority << endl;
@@ -111,25 +111,25 @@ void displayList(List *list)
     }
 }
 
-void convertToTree(List *list)
+void convertToTree(Queue *queue)
 {
-    while (list->first->next)
+    while (queue->first->next)
     {
-        list->first->priority = list->first->priority + list->first->next->priority;
-        merge(list->first->tree, list->first->next->tree);
-        ListElement *current = list->first->next;
-        list->first->next = current->next;
+        queue->first->priority = queue->first->priority + queue->first->next->priority;
+        merge(queue->first->tree, queue->first->next->tree);
+        QueueElement *current = queue->first->next;
+        queue->first->next = current->next;
         delete current;
-        putOnPlace(list->first);
+        putOnPlace(queue->first);
     }
 }
 
-void addCodes(List *list)
+void addCodes(Queue *queue)
 {
-    addCodes(list->first->tree);
+    addCodes(queue->first->tree);
 }
 
-void fillFile(List *list, const char *nameOfInputFile, const char *nameOfOutputFile)
+void fillFile(Queue *queue, const char *nameOfInputFile, const char *nameOfOutputFile)
 {
-    fillFileWithTree(list->first->tree, nameOfInputFile, nameOfOutputFile);
+    fillFileWithTree(queue->first->tree, nameOfInputFile, nameOfOutputFile);
 }
