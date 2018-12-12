@@ -62,6 +62,7 @@ int main()
     delete[] matrix;
 }
 
+
 int readNumber(ifstream &file, char &symbol, char barrier)
 {
     int result = 0;
