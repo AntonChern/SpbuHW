@@ -1,0 +1,2 @@
+(NODE (a null null) (NODE (b null null) (NODE (NODE (d null null) (c null null)) (r null null))))
+01011101101011000101110
