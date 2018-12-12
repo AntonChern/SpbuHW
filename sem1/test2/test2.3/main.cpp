@@ -58,7 +58,11 @@ int main()
             included[sentence[i] - 'a'] = true;
         }
     }
-    cout << "Amount of words = " << amountOfWords << endl;
+    if (maxLengthOfWord == 0)
+    {
+        amountOfWords = 0;
+    }
+    cout << endl << "Amount of words = " << amountOfWords << endl;
     cout << "Number of different letters in the longest word = " << maxDifferentLetters;
     delete[] sentence;
     delete[] included;
