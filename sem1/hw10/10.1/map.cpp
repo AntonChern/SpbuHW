@@ -80,8 +80,8 @@ void fillMap(Map *map, const char *nameOfFile)
 int h(Point *first, Point *second)
 {
     int lengthSquare = (first->length - second->length) * (first->length - second->length);
-    int widthSquare = (first->width + second->width) * (first->width + second->width);
-    return (int)sqrt(lengthSquare + widthSquare) + 0.5;
+    int widthSquare = (first->width - second->width) * (first->width - second->width);
+    return (int)(sqrt(lengthSquare + widthSquare) + 0.5);
 }
 
 bool existsIndex(int index, int barrier)
