@@ -2,7 +2,7 @@
 
 struct String;
 
-String *createString(char symbols[]);
+String *createString(char *symbols);
 void deleteString(String *string);
 String *clone(String *string);
 

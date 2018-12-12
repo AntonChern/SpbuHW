@@ -24,8 +24,8 @@ void increaseCapacity(String *string, int length)
         if (string->symbols)
         {
             char *deletedSymbols = string->symbols;
-            string->symbols = new char[string->capacity] {};
             int length = lengthString(string);
+            string->symbols = new char[string->capacity] {};
             for (int i = 0; i < length; i++)
             {
                 string->symbols[i] = deletedSymbols[i];
@@ -35,7 +35,7 @@ void increaseCapacity(String *string, int length)
     }
 }
 
-String *createString(char symbols[])
+String *createString(char *symbols)
 {
     String *string = new String {};
     string->capacity = 10;

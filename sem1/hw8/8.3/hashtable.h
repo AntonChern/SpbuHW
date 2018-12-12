@@ -7,8 +7,8 @@ void deleteHashTable(HashTable *hashTable);
 void displayHashTable(HashTable *hashTable);
 void increaseCapacity(HashTable *&hashTable);
 
-int hashInt(HashTable *hashTable, char symbols[]);
-void addRecord(HashTable *&hashTable, char symbols[]);
+int hashInt(HashTable *hashTable, char *symbols);
+void addRecord(HashTable *&hashTable, char *symbols);
 double loadFactor(HashTable *hashTable);
 
 void displayWordsAndAmounts(HashTable *hashTable);

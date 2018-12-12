@@ -7,26 +7,28 @@ const int maxLength = 256;
 
 int main()
 {
-    const char nameOfFile[] = {"file.txt"};
+    const char *nameOfFile = "file.txt";
     ifstream file(nameOfFile);
     HashTable *hashTable = createHashTable(2);
     while (!file.eof())
     {
-        char word[maxLength] = {};
-        char symbol = ' ';
-        while ((!isalpha(symbol)) && (!file.eof()))
+        char *word = new char[maxLength] {};
+        char symbol = '\0';
+        while (!isalpha(symbol) && !file.eof())
         {
             file.get(symbol);
         }
-        for (int i = 0; (symbol != ' ') && (!file.eof()); i++)
+        if (file.eof())
+        {
+            break;
+        }
+        for (int i = 0; isalpha(symbol) && !file.eof(); i++)
         {
             word[i] = symbol;
             file.get(symbol);
         }
-        if (!file.eof())
-        {
-            addRecord(hashTable, word);
-        }
+        addRecord(hashTable, word);
+        delete[] word;
     }
     displayWordsAndAmounts(hashTable);
     cout << endl;
@@ -35,4 +37,3 @@ int main()
     deleteHashTable(hashTable);
     file.close();
 }
-

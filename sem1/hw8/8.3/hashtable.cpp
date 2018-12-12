@@ -27,7 +27,7 @@ void displayHashTable(HashTable *hashTable)
     for (int i = 0; i < hashTable->capacity; i++)
     {
         cout << i << ". ";
-        if (!isEmpty(hashTable->buckets[i]->string))
+        if (hashTable->buckets[i]->string)
         {
             displayString(hashTable->buckets[i]->string);
             cout << " " << hashTable->buckets[i]->amount;
@@ -50,17 +50,12 @@ void increaseCapacity(HashTable *&hashTable)
         HashTable *newHashTable = createHashTable(hashTable->capacity * 2);
         for (int i = 0; i < hashTable->capacity; i++)
         {
-            if (!isEmpty(hashTable->buckets[i]->string))
+            if (hashTable->buckets[i]->string)
             {
                 char *symbols = convertToChar(hashTable->buckets[i]->string);
-                char newSymbols[maxLength] = {};
-                for (int j = 0; symbols[j] != '\0'; j++)
-                {
-                    newSymbols[j] = symbols[j];
-                }
                 for (int j = 0; j < hashTable->buckets[i]->amount; j++)
                 {
-                    addRecord(newHashTable, newSymbols);
+                    addRecord(newHashTable, symbols);
                 }
             }
         }
@@ -77,13 +72,11 @@ HashTable *createHashTable(int capacity)
     for (int i = 0; i < hashTable->capacity; i++)
     {
         hashTable->buckets[i] = new HashTableElement {nullptr, 0, 0};
-        char emptySymbol[maxLength] = {};
-        hashTable->buckets[i]->string = createString(emptySymbol);
     }
     return hashTable;
 }
 
-int hashInt(HashTable *hashTable, char symbols[])
+int hashInt(HashTable *hashTable, char *symbols)
 {
     int result = 0;
     for (int i = 0; symbols[i] != '\0'; i++)
@@ -93,25 +86,15 @@ int hashInt(HashTable *hashTable, char symbols[])
     return result;
 }
 
-void addRecord(HashTable *&hashTable, char symbols[])
+void addRecord(HashTable *&hashTable, char *symbols)
 {
     int key = hashInt(hashTable, symbols);
     int samples = 0;
     String *argument = createString(symbols);
-    if (!isEmpty(hashTable->buckets[key]->string))
+    int step = 1;
+    while (hashTable->buckets[key]->string)
     {
-        if (!isEqual(hashTable->buckets[key]->string, argument))
-        {
-            int step = 1;
-            do
-            {
-                key = (key + step * step) % hashTable->capacity;
-                step++;
-                samples++;
-            }
-            while (!isEmpty(hashTable->buckets[key]->string));
-        }
-        else
+        if (isEqual(hashTable->buckets[key]->string, argument))
         {
             hashTable->buckets[key]->amount++;
             deleteString(argument);
@@ -120,10 +103,12 @@ void addRecord(HashTable *&hashTable, char symbols[])
             increaseCapacity(hashTable);
             return;
         }
+        key = (key + step * step) % hashTable->capacity;
+        step++;
+        samples++;
     }
-    concatenate(hashTable->buckets[key]->string, argument);
+    hashTable->buckets[key]->string = argument;
     hashTable->buckets[key]->amount++;
-    deleteString(argument);
     hashTable->size++;
     samples++;
     hashTable->buckets[key]->samples = samples;
@@ -134,7 +119,10 @@ void deleteHashTable(HashTable *hashTable)
 {
     for (int i = 0; i < hashTable->capacity; i++)
     {
-        deleteString(hashTable->buckets[i]->string);
+        if (hashTable->buckets[i]->string)
+        {
+            deleteString(hashTable->buckets[i]->string);
+        }
         delete hashTable->buckets[i];
     }
     delete[] hashTable->buckets;
@@ -151,7 +139,7 @@ void displayWordsAndAmounts(HashTable *hashTable)
     cout << "Words and their amounts:" << endl;
     for (int i = 0; i < hashTable->capacity; i++)
     {
-        if (!isEmpty(hashTable->buckets[i]->string))
+        if (hashTable->buckets[i]->string)
         {
             displayString(hashTable->buckets[i]->string);
             cout << " => " << hashTable->buckets[i]->amount << endl;
@@ -169,7 +157,7 @@ void displaySamplesAndCells(HashTable *hashTable)
     int numOfWords = 0;
     for (int i = 0; i < hashTable->capacity; i++)
     {
-        if (!isEmpty(hashTable->buckets[i]->string))
+        if (hashTable->buckets[i]->string)
         {
             sumSamples += hashTable->buckets[i]->samples;
             if (hashTable->buckets[i]->samples > maxSample)
