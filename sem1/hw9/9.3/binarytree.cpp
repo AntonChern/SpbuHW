@@ -119,6 +119,7 @@ void fillFile(BinaryTree *tree, const char *nameOfInputFile, const char *nameOfO
             String *argument = createString(codeArgument);
             concatenate(code, argument);
             deleteString(argument);
+            delete[] codeArgument;
             Node *select = nullptr;
             findNode(tree->root, select, code);
             if (select)
