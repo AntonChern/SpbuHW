@@ -74,16 +74,38 @@ void addElement(Node *&node, char symbol)
     node = new Node {symbol, nullptr, nullptr};
 }
 
-void fillFile(BinaryTree *tree, const char *nameOfInputFile, const char *nameOfOutputFile)
+int countEnters(const char *nameOfInputFile)
 {
     ifstream inputFile(nameOfInputFile);
+    int result = 0;
     char symbol = '\0';
-    while (symbol != '\n')
+    inputFile.get(symbol);
+    while (!inputFile.eof())
     {
+        if (symbol == '\n')
+        {
+            result++;
+        }
+        inputFile.get(symbol);
+    }
+    inputFile.close();
+    return result;
+}
+
+void fillFile(BinaryTree *tree, const char *nameOfInputFile, const char *nameOfOutputFile)
+{
+    int amountOfEnters = countEnters(nameOfInputFile);
+    ifstream inputFile(nameOfInputFile);
+    char symbol = '\0';
+    for (int i = 0; i < amountOfEnters; i++)
+    {
+        while (symbol != '\n')
+        {
+            inputFile.get(symbol);
+        }
         inputFile.get(symbol);
     }
     ofstream outputFile(nameOfOutputFile);
-    inputFile.get(symbol);
     while (!inputFile.eof())
     {
         bool added = false;
@@ -115,22 +137,30 @@ void fillFile(BinaryTree *tree, const char *nameOfInputFile, const char *nameOfO
 void fillTree(Node *&node, ifstream &inputFile, char symbol)
 {
     inputFile.get(symbol);
-    inputFile.get(symbol);
-    if (symbol != ' ')
+    if (symbol == '\n')
     {
-        while (symbol != ' ')
-        {
-            inputFile.get(symbol);
-        }
-        addElement(node, '\0');
+        addElement(node, symbol);
+        inputFile.get(symbol);
     }
     else
     {
-        inputFile.unget();
-        inputFile.unget();
         inputFile.get(symbol);
-        addElement(node, symbol);
-        inputFile.get(symbol);
+        if (symbol != ' ')
+        {
+            while (symbol != ' ')
+            {
+                inputFile.get(symbol);
+            }
+            addElement(node, '\0');
+        }
+        else
+        {
+            inputFile.unget();
+            inputFile.unget();
+            inputFile.get(symbol);
+            addElement(node, symbol);
+            inputFile.get(symbol);
+        }
     }
     for (int i = 0; i < 2; i++)
     {
@@ -148,19 +178,8 @@ void fillTree(Node *&node, ifstream &inputFile, char symbol)
         }
         else
         {
-            inputFile.get(symbol);
-            if (symbol != ' ')
+            if (symbol == '\n')
             {
-                while (symbol != ' ' && symbol != ')')
-                {
-                    inputFile.get(symbol);
-                }
-            }
-            else
-            {
-                inputFile.unget();
-                inputFile.unget();
-                inputFile.get(symbol);
                 if (!node->leftChild)
                 {
                     addElement(node->leftChild, symbol);
@@ -168,6 +187,31 @@ void fillTree(Node *&node, ifstream &inputFile, char symbol)
                 else
                 {
                     addElement(node->rightChild, symbol);
+                }
+            }
+            else
+            {
+                inputFile.get(symbol);
+                if (symbol != ' ')
+                {
+                    while (symbol != ' ' && symbol != ')')
+                    {
+                        inputFile.get(symbol);
+                    }
+                }
+                else
+                {
+                    inputFile.unget();
+                    inputFile.unget();
+                    inputFile.get(symbol);
+                    if (!node->leftChild)
+                    {
+                        addElement(node->leftChild, symbol);
+                    }
+                    else
+                    {
+                        addElement(node->rightChild, symbol);
+                    }
                 }
             }
         }
