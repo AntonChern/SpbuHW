@@ -106,7 +106,6 @@ void addCodes(BinaryTree *tree)
     char *emptyString = new char[maxLength] {};
     String *code = createString(emptyString);
     addCodes(tree->root, code);
-    deleteString(code);
     delete[] emptyString;
 }
 
