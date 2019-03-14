@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SorterTest {
     @Test
-    public void ascending() {
+    public void sort() {
         test(new BubbleSort());
         test(new HeapSort());
         test(new QuickSort());
@@ -19,7 +19,7 @@ class SorterTest {
         int[] expectedNumbers = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
         for (int i = 0; i < 2; i++) {
-            sort.ascending(actualNumbers[i]);
+            sort.sort(actualNumbers[i]);
 
             assertArrayEquals(expectedNumbers, actualNumbers[i]);
         }

@@ -4,11 +4,11 @@ package com.AntonChernikov.g144;
  * Class describing quick sort
  * */
 public class QuickSort implements Sorter {
-    public void ascending(int[] numbers) {
-        ascending(0, numbers.length - 1, numbers);
+    public void sort(int[] numbers) {
+        sort(0, numbers.length - 1, numbers);
     }
 
-    private void ascending(int first, int last, int[] numbers) {
+    private void sort(int first, int last, int[] numbers) {
         if (first < last) {
             int length = last - first + 1;
             int select = first + length / 2;
@@ -32,8 +32,8 @@ public class QuickSort implements Sorter {
                     }
                 }
             }
-            ascending(first, select - 1, numbers);
-            ascending(select + 1, last, numbers);
+            sort(first, select - 1, numbers);
+            sort(select + 1, last, numbers);
         }
     }
 }

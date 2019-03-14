@@ -26,7 +26,7 @@ public class Program {
             }
             System.out.println();
 
-            sorts[i].ascending(numbers);
+            sorts[i].sort(numbers);
 
             System.out.print("After:  ");
             for (int element : numbers) {
