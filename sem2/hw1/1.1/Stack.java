@@ -1,18 +1,18 @@
 package com.AntonChernikov.g144;
 
 public class Stack {
-    public class StackElement {
-        int value;
-        StackElement next;
+    private class StackElement {
+        private int value;
+        private StackElement next;
 
-        public StackElement(int value, StackElement next) {
+        private StackElement(int value, StackElement next) {
             this.value = value;
             this.next = next;
         }
     }
 
-    StackElement first = null;
-    int size = 0;
+    private StackElement first = null;
+    public int size = 0;
 
     public void push(int value) {
         StackElement newElement = new StackElement(value, first);
