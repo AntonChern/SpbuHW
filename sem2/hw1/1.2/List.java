@@ -4,18 +4,18 @@ package com.AntonChernikov.g144;
  * Single linked list
  * */
 public class List {
-    public class ListElement {
-        int value;
-        ListElement next;
+    private class ListElement {
+        private int value;
+        private ListElement next;
 
-        public ListElement(int value, ListElement next) {
+        private ListElement(int value, ListElement next) {
             this.value = value;
             this.next = next;
         }
     }
 
-    ListElement first = null;
-    int size = 0;
+    private ListElement first = null;
+    private int size = 0;
 
     public void addElement(int value) {
         ListElement newElement = new ListElement(value, first);
