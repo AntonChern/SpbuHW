@@ -12,7 +12,7 @@ public class Stack {
     }
 
     private StackElement first = null;
-    public int size = 0;
+    private int size = 0;
 
     public void push(int value) {
         StackElement newElement = new StackElement(value, first);
