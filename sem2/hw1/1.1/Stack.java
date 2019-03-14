@@ -1,21 +1,30 @@
 package com.AntonChernikov.g144;
 
 public class Stack {
-    StackElement first;
+    public class StackElement {
+        int value;
+        StackElement next;
 
-    public Stack() {
-        first = null;
+        public StackElement(int value, StackElement next) {
+            this.value = value;
+            this.next = next;
+        }
     }
+
+    StackElement first = null;
+    int size = 0;
 
     public void push(int value) {
         StackElement newElement = new StackElement(value, first);
         first = newElement;
+        size++;
     }
 
     public int pop() {
         if (first != null) {
             int result = first.value;
             first = first.next;
+            size--;
             return result;
         }
         return 0;
@@ -26,13 +35,7 @@ public class Stack {
     }
 
     public int size() {
-        int result = 0;
-        StackElement current = first;
-        while (current != null) {
-            result++;
-            current = current.next;
-        }
-        return result;
+        return size;
     }
 
     public void print() {
