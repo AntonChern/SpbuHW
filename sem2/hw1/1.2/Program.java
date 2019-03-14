@@ -7,9 +7,8 @@ public class Program {
         System.out.println("0 - escape");
         System.out.println("1 - add element");
         System.out.println("2 - delete element");
-        System.out.println("3 - find element");
-        System.out.println("4 - print list");
-        System.out.println("5 - print size of list");
+        System.out.println("3 - print list");
+        System.out.println("4 - print size of list");
         System.out.println();
 
         int command = 1;
@@ -36,23 +35,11 @@ public class Program {
                     break;
                 }
                 case 3: {
-                    System.out.println("Enter value");
-                    int value = in.nextInt();
-                    if (list.exists(value)) {
-                        System.out.println("Value contained");
-                    }
-                    else {
-                        System.out.println("Value not contained");
-                    }
-                    System.out.println();
-                    break;
-                }
-                case 4: {
                     list.print();
                     System.out.println();
                     break;
                 }
-                case 5: {
+                case 4: {
                     System.out.println("Size of list - " + list.size());
                     System.out.println();
                     break;
@@ -62,6 +49,5 @@ public class Program {
                 }
             }
         }
-
     }
 }

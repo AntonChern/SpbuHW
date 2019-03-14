@@ -1,55 +1,47 @@
 package com.AntonChernikov.g144;
 
 /**
- Single linked list
- */
+ * Single linked list
+ * */
 public class List {
-    ListElement first;
+    public class ListElement {
+        int value;
+        ListElement next;
 
-    public List() {
-        first = null;
+        public ListElement(int value, ListElement next) {
+            this.value = value;
+            this.next = next;
+        }
     }
+
+    ListElement first = null;
+    int size = 0;
 
     public void addElement(int value) {
         ListElement newElement = new ListElement(value, first);
         first = newElement;
+        size++;
     }
 
     public void deleteElement(int value) {
         if (first.value == value) {
+            size--;
             first = first.next;
             return;
         }
         ListElement current = first;
-        while (current.next.value != value) {
-            current = current.next;
-        }
-        current.next = current.next.next;
-    }
-
-    public boolean exists(int value) {
-        ListElement current = first;
-        while (current != null) {
-            if (current.value == value) {
-                return true;
+        while (current.next != null) {
+            if (current.next.value == value) {
+                size--;
+                current.next = current.next.next;
+                return;
             }
             current = current.next;
         }
-        return false;
     }
 
     public int size() {
-        int result = 0;
-        ListElement current = first;
-        if (first == null) {
-            return result;
-        }
-        result++;
-        while (current.next != null) {
-            result++;
-            current = current.next;
-        }
-        return result;
+        return size;
     }
 
     public void print() {
