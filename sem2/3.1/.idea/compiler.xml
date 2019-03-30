@@ -2,8 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="com.program.com.program.main" target="1.8" />
-      <module name="com.program.com.program.test" target="1.8" />
+      <module name="com.priorityqueue.com.program.main" target="11" />
+      <module name="com.priorityqueue.com.program.test" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
