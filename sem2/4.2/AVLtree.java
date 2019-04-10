@@ -356,7 +356,7 @@ class AVLTree<T> implements Collection<T> {
         public T next() {
             for (Node current : elements) {
                 if (!contains(current.value)) {
-                    elements.remove(current.value);
+                    elements.remove(current);
                 }
             }
             return elements.pop().value;
