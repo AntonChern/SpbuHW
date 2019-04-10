@@ -331,7 +331,7 @@ class AVLTree<T> implements Collection<T> {
 
     private class AVLTreeIterator implements Iterator<T> {
 
-        private ArrayDeque<Node> elements = null;
+        private ArrayDeque<T> elements = null;
 
         private AVLTreeIterator() {
             elements = new ArrayDeque<>();
@@ -343,7 +343,7 @@ class AVLTree<T> implements Collection<T> {
                 return;
             }
             addElement(node.leftChild);
-            elements.push(node);
+            elements.addLast(node.value);
             addElement(node.rightChild);
         }
 
@@ -354,12 +354,12 @@ class AVLTree<T> implements Collection<T> {
 
         @Override
         public T next() {
-            for (Node current : elements) {
-                if (!contains(current.value)) {
+            for (T current : elements) {
+                if (!contains(current)) {
                     elements.remove(current);
                 }
             }
-            return elements.pop().value;
+            return elements.pollFirst();
         }
 
     }
