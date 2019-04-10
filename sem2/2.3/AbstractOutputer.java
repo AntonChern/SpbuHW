@@ -3,7 +3,7 @@ package com.AntonChernikov.g144;
 /**
  * Class describing creating the needed string
  * */
-public class AbstractOutputer {
+public abstract class AbstractOutputer {
     public String buildString(int[][] matrix) {
         String result = new String();
 
@@ -11,7 +11,7 @@ public class AbstractOutputer {
         int block = 1;
         int step = 1;
         int column = matrix.length / 2;
-        int line = matrix.length/ 2;
+        int line = matrix.length / 2;
         result += matrix[column][line] + " ";
         count++;
         while (count < matrix.length * matrix.length) {
