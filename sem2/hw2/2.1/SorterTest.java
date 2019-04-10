@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SorterTest {
+
     @Test
     public void sort() {
         test(new BubbleSort());
@@ -24,4 +25,5 @@ class SorterTest {
             assertArrayEquals(expectedNumbers, actualNumbers[i]);
         }
     }
+
 }
