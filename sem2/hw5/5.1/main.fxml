@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="100.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.AntonChernikov.g144.Controller">
+   <children>
+      <Slider fx:id="slider" layoutX="19.0" layoutY="65.0" onMouseDragged="#setValue" prefHeight="14.0" prefWidth="268.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="66.0" />
+      <ProgressBar fx:id="progressBar" layoutX="19.0" layoutY="24.0" prefHeight="18.0" prefWidth="268.0" progress="0.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" />
+   </children>
+</AnchorPane>
