@@ -24,6 +24,7 @@ public class Main extends Application {
         }
         Scene scene = new Scene(root);
         primaryStage.setTitle("MainWindow");
+        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
