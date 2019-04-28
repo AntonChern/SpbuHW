@@ -28,8 +28,7 @@ public class UniqueList<T> {
         if (exists(value)) {
             throw new ElementExistsException();
         }
-        ListElement newElement = new ListElement(value, first);
-        first = newElement;
+        first = new ListElement(value, first);
     }
 
     /**
