@@ -57,7 +57,7 @@ class AVLTreeTest {
         Object[] actualArray = null;
         actualArray = tree.toArray();
         for (int i = 0; i < size; i++) {
-            assertEquals(expectedArray[i], actualArray[size - 1 - i]);
+            assertEquals(expectedArray[i], actualArray[i]);
         }
     }
 
@@ -73,7 +73,7 @@ class AVLTreeTest {
         Integer[] actualArray = new Integer[size];
         actualArray = tree.toArray(actualArray);
         for (int i = 0; i < size; i++) {
-            assertEquals(expectedArray[i], actualArray[size - 1 - i]);
+            assertEquals(expectedArray[i], actualArray[i]);
         }
     }
 
