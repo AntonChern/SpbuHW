@@ -5,7 +5,7 @@ public class Calculator {
      * Method returning a postfix arithmetic expression
      * */
     public String postfixNotation(String expression) {
-        String outputLine = new String();
+        StringBuilder outputLine = new StringBuilder();
         StackOnLinkedList stack = new StackOnLinkedList();
         for (int i = 0; i < expression.length(); i++) {
             switch (expression.charAt(i)) {
@@ -19,7 +19,7 @@ public class Calculator {
                 case '7':
                 case '8':
                 case '9': {
-                    outputLine += expression.charAt(i);
+                    outputLine.append(expression.charAt(i));
                     break;
                 }
                 case '(': {
@@ -29,7 +29,7 @@ public class Calculator {
                 case ')': {
                     char element = (char)stack.pop();
                     while (element != '(') {
-                        outputLine += element;
+                        outputLine.append(element);
                         element = (char)stack.pop();
                     }
                     break;
@@ -38,13 +38,15 @@ public class Calculator {
                 case '-':
                 case '*':
                 case '/': {
-                    if (!stack.isEmpty()) {
+                    while (!stack.isEmpty()) {
                         char element = (char)stack.pop();
-                        while (priority(element) >= priority(expression.charAt(i))) {
-                            outputLine += element;
-                            element = (char)stack.pop();
+                        if (priority(element) >= priority(expression.charAt(i))) {
+                            outputLine.append(element);
                         }
-                        stack.push(element);
+                        else {
+                            stack.push(element);
+                            break;
+                        }
                     }
                     stack.push(expression.charAt(i));
                     break;
@@ -52,22 +54,19 @@ public class Calculator {
             }
         }
         while (!stack.isEmpty()) {
-            outputLine += (char)stack.pop();
+            outputLine.append((char) stack.pop());
         }
-        return outputLine;
+        return outputLine.toString();
     }
 
     /**
      * Method calculating the value of arithmetic expression
      * */
-    public int calculate(String expression)
-    {
+    public int calculate(String expression) {
         String outputLine = postfixNotation(expression);
         StackOnArray stack = new StackOnArray(20);
-        for (int i = 0; i < outputLine.length(); i++)
-        {
-            switch (outputLine.charAt(i))
-            {
+        for (int i = 0; i < outputLine.length(); i++) {
+            switch (outputLine.charAt(i)) {
                 case '0':
                 case '1':
                 case '2':
@@ -77,31 +76,26 @@ public class Calculator {
                 case '6':
                 case '7':
                 case '8':
-                case '9':
-                {
+                case '9': {
                     stack.push(outputLine.charAt(i) - '0');
                     break;
                 }
-                case '+':
-                {
+                case '+': {
                     int second = stack.pop();
                     stack.push(stack.pop() + second);
                     break;
                 }
-                case '-':
-                {
+                case '-': {
                     int second = stack.pop();
                     stack.push(stack.pop() - second);
                     break;
                 }
-                case '*':
-                {
+                case '*': {
                     int second = stack.pop();
                     stack.push(stack.pop() * second);
                     break;
                 }
-                case '/':
-                {
+                case '/': {
                     int second = stack.pop();
                     stack.push(stack.pop() / second);
                     break;
@@ -111,22 +105,17 @@ public class Calculator {
         return stack.pop();
     }
 
-    private int priority(char element)
-    {
-        switch (element)
-        {
+    private int priority(char element) {
+        switch (element) {
             case '*':
-            case '/':
-            {
+            case '/': {
                 return 1;
             }
             case '+':
-            case '-':
-            {
+            case '-': {
                 return 0;
             }
-            case '(':
-            {
+            case '(': {
                 return -1;
             }
         }
