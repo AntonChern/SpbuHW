@@ -7,10 +7,10 @@ import java.io.*;
  * */
 public class OutputToFile extends AbstractOutputer implements Outputer {
     public void output(int[][] matrix) {
-        try (FileWriter file = new FileWriter("File.txt")) {
-            file.write(buildString(matrix));
+        try (FileOutputStream file = new FileOutputStream("File.txt")) {
+            out(matrix, file);
         } catch (IOException e) {
-            System.out.println("Input/output error: " + e);
+            System.out.println("Error while outputting to file: " + e);
         }
     }
 }

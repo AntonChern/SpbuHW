@@ -28,9 +28,12 @@ public class Program {
         System.out.println("0 - to console");
         System.out.println("1 - to file");
 
-        int command = 0;
         Scanner in = new Scanner(System.in);
-        command = in.nextInt();
+        int command = in.nextInt();
+        while (command != 0 && command != 1) {
+            System.out.println("Incorrect data");
+            command = in.nextInt();
+        }
         outputer[command].output(matrix);
     }
 }
