@@ -1,6 +1,7 @@
 package com.AntonChernikov.g144;
 
 import java.util.Scanner;
+import java.util.function.Function;
 
 public class Program {
     /**
@@ -61,13 +62,49 @@ public class Program {
                     break;
                 }
                 case 6: {
-                    System.out.println("Enter index of hash function (0 or 1)");
+                    System.out.println("Enter index of hash function (0, 1 or 2)");
                     int index = in.nextInt();
-                    while (index != 0 && index != 1) {
+                    while (index != 0 && index != 1 && index != 2) {
                         System.out.println("Incorrect data");
                         index = in.nextInt();
                     }
-                    table.changeHash(index);
+                    Function<Integer, Integer> hashFunction = n -> n;
+                    switch (index) {
+                        case 0: {
+                            hashFunction = n -> {
+                                n += ~(n << 16);
+                                n ^=  (n >>  5);
+                                n +=  (n <<  3);
+                                n ^=  (n >> 13);
+                                n += ~(n <<  9);
+                                n ^=  (n >> 17);
+                                return n;
+                            };
+                            break;
+                        }
+                        case 1: {
+                            hashFunction = n -> {
+                                n ^= (n << 13);
+                                n ^= (n >>> 17);
+                                n ^= (n << 5);
+                                return n;
+                            };
+                            break;
+                        }
+                        case 2: {
+                            hashFunction = n -> {
+                                n += (n << 3);
+                                n ^= (n >> 11);
+                                n += (n << 15);
+                                return n;
+                            };
+                            break;
+                        }
+                        default: {
+                            break;
+                        }
+                    }
+                    table.changeHash(hashFunction);
                     System.out.println("Hash function changed\n");
                     break;
                 }
