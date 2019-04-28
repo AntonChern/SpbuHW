@@ -1,5 +1,7 @@
 package com.AntonChernikov.g144;
 
+import java.util.EmptyStackException;
+
 /**
  * Class describing stack functionality using linked list
  * */
@@ -21,13 +23,13 @@ public class StackOnLinkedList implements Stack {
         first = newElement;
     }
 
-    public int pop() {
+    public int pop() throws EmptyStackException {
         if (first != null) {
             int result = first.value;
             first = first.next;
             return result;
         }
-        return 0;
+        throw new EmptyStackException();
     }
 
     public boolean isEmpty() {

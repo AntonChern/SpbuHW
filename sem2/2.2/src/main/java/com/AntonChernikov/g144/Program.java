@@ -1,5 +1,6 @@
 package com.AntonChernikov.g144;
 
+import java.util.EmptyStackException;
 import java.util.Scanner;
 
 public class Program {
@@ -12,6 +13,13 @@ public class Program {
         String expression = in.nextLine();
 
         Calculator calculator = new Calculator();
-        System.out.print("Value = " + calculator.calculate(expression));
+        try {
+            int result = calculator.calculate(expression);
+            System.out.print("Value = " + result);
+        } catch (Exception e) {
+            System.out.print("There is an error in the entered expression");
+        } catch (Error e) {
+            System.out.print("The expression too long");
+        }
     }
 }
