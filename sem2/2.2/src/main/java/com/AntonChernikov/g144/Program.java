@@ -16,10 +16,8 @@ public class Program {
         try {
             int result = calculator.calculate(expression);
             System.out.print("Value = " + result);
-        } catch (Exception e) {
+        } catch (EmptyStackException e) {
             System.out.print("There is an error in the entered expression");
-        } catch (Error e) {
-            System.out.print("The expression too long");
         }
     }
 }
