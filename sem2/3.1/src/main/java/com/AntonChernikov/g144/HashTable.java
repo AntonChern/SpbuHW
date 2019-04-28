@@ -21,8 +21,8 @@ public class HashTable {
     /**
      * Method changing hash function and recreating the hash table
      * */
-    public void changeHash() {
-        hashCode *= -1;
+    public void changeHash(int index) {
+        hashCode = index;
         ArrayList<Integer>[] newBuckets = new ArrayList[buckets.length];
         for (int i = 0; i < buckets.length; i++) {
             newBuckets[i] = new ArrayList<>();
@@ -49,7 +49,7 @@ public class HashTable {
                 value ^=  (value >> 17);
                 break;
             }
-            case -1: {
+            case 0: {
                 value %= buckets.length;
                 break;
             }

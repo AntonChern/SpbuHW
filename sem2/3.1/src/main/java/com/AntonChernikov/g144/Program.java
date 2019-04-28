@@ -61,7 +61,13 @@ public class Program {
                     break;
                 }
                 case 6: {
-                    table.changeHash();
+                    System.out.println("Enter index of hash function (0 or 1)");
+                    int index = in.nextInt();
+                    while (index != 0 && index != 1) {
+                        System.out.println("Incorrect data");
+                        index = in.nextInt();
+                    }
+                    table.changeHash(index);
                     System.out.println("Hash function changed\n");
                     break;
                 }
