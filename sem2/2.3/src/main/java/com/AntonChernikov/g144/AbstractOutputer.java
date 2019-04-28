@@ -7,6 +7,10 @@ import java.io.OutputStream;
  * Class describing output matrix in a spiral to stream
  * */
 public abstract class AbstractOutputer {
+
+    /**
+     * Method displaying the matrix in a spiral to the stream
+     * */
     public String out(int[][] matrix, OutputStream stream) {
         StringBuilder result = new StringBuilder();
 
