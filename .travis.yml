@@ -4,4 +4,4 @@ jdk:
 os:
 - linux
 script:
-- cd semester2
+- cd sem2
