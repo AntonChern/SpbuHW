@@ -6,16 +6,16 @@ import java.util.*;
  * Class realizing the functionality of AVL tree
  * */
 class AVLTree<T> implements Collection<T> {
+
+    private Node root;
+    private int size = 0;
+
     /**
      * Method returning the number of elements in the tree
      * */
     @Override
     public int size() {
-        int result = 0;
-        for (T value : this) {
-            result++;
-        }
-        return result;
+        return size;
     }
 
     /**
@@ -37,15 +37,11 @@ class AVLTree<T> implements Collection<T> {
             if (value == foundElement.value)
             {
                 return true;
-            }
-            else
-            {
+            } else {
                 if (((Comparable)value).compareTo(foundElement.value) > 0)
                 {
                     foundElement = foundElement.rightChild;
-                }
-                else
-                {
+                } else {
                     foundElement = foundElement.leftChild;
                 }
             }
@@ -91,63 +87,14 @@ class AVLTree<T> implements Collection<T> {
         return a;
     }
 
-    private Node removeElement(Node node) {
-        if (node.leftChild != null) {
-            if (node.rightChild != null) {
-                Node current = node.rightChild;
-
-                while (current.leftChild != null) {
-                    current = current.leftChild;
-                }
-
-                //swap
-                T value = node.value;
-                node.value = current.value;
-                current.value = value;
-
-                node.rightChild = removeElement(node.rightChild, current.value);
-                return balance(node);
-            }
-            else {
-                return node.leftChild;
-            }
-        }
-        else {
-            if (node.rightChild != null) {
-                return node.rightChild;
-            }
-            else {
-                return null;
-            }
-        }
-    }
-
-    private Node removeElement(Node node, Object value) {
-        if (value.equals(node.value)) {
-            return removeElement(node);
-        }
-        if (((Comparable)value).compareTo(node.value) < 0) {
-            if (node.leftChild != null) {
-                node.leftChild = removeElement(node.leftChild, value);
-                return balance(node);
-            }
-        }
-        else {
-            if (node.rightChild != null) {
-                node.rightChild = removeElement(node.rightChild, value);
-                return balance(node);
-            }
-        }
-        return node;
-    }
-
     /**
      * Method removing a value from a tree
      * */
     @Override
     public boolean remove(Object value) {
         if (contains(value)) {
-            root = removeElement(root, value);
+            root = root.removeElement(value);
+            size--;
             return true;
         }
         return false;
@@ -181,7 +128,6 @@ class AVLTree<T> implements Collection<T> {
         }
         return true;
     }
-
 
     /**
      * Method removing all elements from the tree that are in the collection
@@ -225,92 +171,6 @@ class AVLTree<T> implements Collection<T> {
         root = null;
     }
 
-    private Node root;
-
-    private int height(Node node) {
-        return (node == null) ? 0 : node.height;
-    }
-
-    private void updateHeight(Node node) {
-        int heightLeft = height(node.leftChild);
-        int heightRight = height(node.rightChild);
-        node.height = ((heightLeft > heightRight) ? heightLeft : heightRight) + 1;
-    }
-
-    private int balanceFactor(Node node) {
-        return height(node.rightChild) - height(node.leftChild);
-    }
-
-    private Node rotateLeft(Node root) {
-        Node pivot = root.rightChild;
-        root.rightChild = pivot.leftChild;
-        pivot.leftChild = root;
-        updateHeight(root);
-        updateHeight(pivot);
-        return pivot;
-    }
-
-    private Node rotateRight(Node root) {
-        Node pivot = root.leftChild;
-        root.leftChild = pivot.rightChild;
-        pivot.rightChild = root;
-        updateHeight(root);
-        updateHeight(pivot);
-        return pivot;
-    }
-
-    private Node balance(Node node) {
-        updateHeight(node);
-        if (balanceFactor(node) == 2)
-        {
-            if (balanceFactor(node.rightChild) < 0)
-            {
-                node.rightChild = rotateRight(node.rightChild);
-            }
-            return rotateLeft(node);
-        }
-        if (balanceFactor(node) == -2)
-        {
-            if (balanceFactor(node.leftChild) > 0)
-            {
-                node.leftChild = rotateLeft(node.leftChild);
-            }
-            return rotateRight(node);
-        }
-        return node;
-    }
-
-    private boolean addElement(Node node, T value) {
-        if (!value.equals(node.value)) {
-            if (((Comparable)node.value).compareTo(value) < 0) {
-                if (node.rightChild != null) {
-                    if (!addElement(node.rightChild, value)) {
-                        return false;
-                    }
-                    node.rightChild = balance(node.rightChild);
-                }
-                else {
-                    node.rightChild = new Node(value);
-                }
-            }
-            else {
-                if (node.leftChild != null) {
-                    if (!addElement(node.leftChild, value)) {
-                        return false;
-                    }
-                    node.leftChild = balance(node.leftChild);
-                }
-                else {
-                    node.leftChild = new Node(value);
-                }
-            }
-        }
-        else {
-            return false;
-        }
-        return true;
-    }
-
     /**
      * Method adding a value from a tree
      * */
@@ -318,26 +178,194 @@ class AVLTree<T> implements Collection<T> {
     public boolean add(T value)
     {
         if (root != null) {
-            if (!addElement(root, value)) {
+            if (!root.addElement(value)) {
                 return false;
             }
-            root = balance(root);
-        }
-        else {
+            root = root.balance();
+        } else {
             root = new Node(value);
         }
+        size++;
         return true;
     }
 
+    /**
+     * Class describing the functionality of the AVL tree element
+     * */
+    private class Node {
+
+        private T value;
+        private int height = 0;
+        private Node leftChild = null;
+        private Node rightChild = null;
+
+        private Node(T value) {
+            this.value = value;
+        }
+
+        /**
+         * Method that returns the maximum number of nodes from this node to the leaf
+         * */
+        private int height(Node node) {
+            return (node == null) ? 0 : node.height;
+        }
+
+        /**
+         * Method updating height
+         * */
+        private void updateHeight(Node node) {
+            int heightLeft = height(node.leftChild);
+            int heightRight = height(node.rightChild);
+            node.height = ((heightLeft > heightRight) ? heightLeft : heightRight) + 1;
+        }
+
+        /**
+         * Method returning the difference between the height of the right and left nodes
+         * */
+        private int balanceFactor(Node node) {
+            return height(node.rightChild) - height(node.leftChild);
+        }
+
+        /**
+         * Method performing rotate to left around this node
+         * */
+        private Node rotateLeft(Node root) {
+            Node pivot = root.rightChild;
+            root.rightChild = pivot.leftChild;
+            pivot.leftChild = root;
+            updateHeight(root);
+            updateHeight(pivot);
+            return pivot;
+        }
+
+        /**
+         * Method performing rotate to right around this node
+         * */
+        private Node rotateRight(Node root) {
+            Node pivot = root.leftChild;
+            root.leftChild = pivot.rightChild;
+            pivot.rightChild = root;
+            updateHeight(root);
+            updateHeight(pivot);
+            return pivot;
+        }
+
+        /**
+         * Method balancing this node
+         * */
+        private Node balance() {
+            updateHeight(this);
+            if (balanceFactor(this) == 2)
+            {
+                if (balanceFactor(this.rightChild) < 0)
+                {
+                    this.rightChild = rotateRight(this.rightChild);
+                }
+                return rotateLeft(this);
+            }
+            if (balanceFactor(this) == -2)
+            {
+                if (balanceFactor(this.leftChild) > 0)
+                {
+                    this.leftChild = rotateLeft(this.leftChild);
+                }
+                return rotateRight(this);
+            }
+            return this;
+        }
+
+        /**
+         * Method iteratively adding a node to the tree
+         * */
+        private boolean addElement(T value) {
+            if (!value.equals(this.value)) {
+                if (((Comparable)this.value).compareTo(value) < 0) {
+                    if (this.rightChild != null) {
+                        if (!this.rightChild.addElement(value)) {
+                            return false;
+                        }
+                        this.rightChild = this.rightChild.balance();
+                    } else {
+                        this.rightChild = new Node(value);
+                    }
+                } else {
+                    if (this.leftChild != null) {
+                        if (!this.leftChild.addElement(value)) {
+                            return false;
+                        }
+                        this.leftChild = this.leftChild.balance();
+                    } else {
+                        this.leftChild = new Node(value);
+                    }
+                }
+            } else {
+                return false;
+            }
+            return true;
+        }
+
+        /**
+         * Method removing this node from the tree
+         * */
+        private Node removeElement() {
+            if (this.leftChild != null) {
+                if (this.rightChild != null) {
+                    Node current = this.rightChild;
+
+                    while (current.leftChild != null) {
+                        current = current.leftChild;
+                    }
+
+                    //swap
+                    T value = this.value;
+                    this.value = current.value;
+                    current.value = value;
+
+                    this.rightChild = this.rightChild.removeElement(current.value);
+                    return this.balance();
+                }
+                return this.leftChild;
+            }
+            return this.rightChild;
+        }
+
+        /**
+         * Method finding the node by value and removing it from the tree
+         * */
+        private Node removeElement(Object value) {
+            if (value.equals(this.value)) {
+                return this.removeElement();
+            }
+            if (((Comparable)value).compareTo(this.value) < 0) {
+                if (this.leftChild != null) {
+                    this.leftChild = this.leftChild.removeElement(value);
+                    return this.balance();
+                }
+            } else {
+                if (this.rightChild != null) {
+                    this.rightChild = this.rightChild.removeElement(value);
+                    return this.balance();
+                }
+            }
+            return this;
+        }
+    }
+
+    /**
+     * Class describing iterator AVL tree
+     * */
     private class AVLTreeIterator implements Iterator<T> {
 
-        private ArrayDeque<T> elements = null;
+        private ArrayDeque<T> elements;
 
         private AVLTreeIterator() {
             elements = new ArrayDeque<>();
             addElement(root);
         }
 
+        /**
+         * Method filling queue with elements from tree by in-order traversal
+         * */
         private void addElement(Node node) {
             if (node == null) {
                 return;
@@ -347,11 +375,17 @@ class AVLTree<T> implements Collection<T> {
             addElement(node.rightChild);
         }
 
+        /**
+         * {@inheritDoc}
+         * */
         @Override
         public boolean hasNext() {
             return !elements.isEmpty();
         }
 
+        /**
+         * {@inheritDoc}
+         * */
         @Override
         public T next() {
             for (T current : elements) {
@@ -361,46 +395,5 @@ class AVLTree<T> implements Collection<T> {
             }
             return elements.pollFirst();
         }
-
-    }
-
-    private class Node {
-        private T value;
-
-        private int height = 0;
-        private Node leftChild = null;
-        private Node rightChild = null;
-        private Node(T value) {
-            this.value = value;
-        }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
