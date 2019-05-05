@@ -2,6 +2,9 @@ package com.AntonChernikov.g144;
 
 import java.util.LinkedList;
 
+/**
+ * Class describing sorted set
+ * */
 public class SortedSet {
 
     private LinkedList<LinkedList> set;
@@ -10,10 +13,16 @@ public class SortedSet {
         set = new LinkedList<>();
     }
 
+    /**
+     * Method checking set for emptiness
+     * */
     public boolean isEmpty() {
         return set.size() == 0;
     }
 
+    /**
+     * Method adding list to set
+     * */
     public void add(LinkedList list) {
         if (isEmpty()) {
             set.add(list);
@@ -29,6 +38,9 @@ public class SortedSet {
         }
     }
 
+    /**
+     * Method checking list for existence
+     * */
     public boolean contains(LinkedList list) {
         for (LinkedList current : set) {
             if (current.equals(list)) {
@@ -38,6 +50,9 @@ public class SortedSet {
         return false;
     }
 
+    /**
+     * Method printing set
+     * */
     public String print() {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < set.size(); i++) {
