@@ -25,6 +25,8 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         primaryStage.setTitle("Task 5.1");
         primaryStage.setScene(scene);
+        primaryStage.setMinWidth(316);
+        primaryStage.setMinHeight(138);
         primaryStage.show();
     }
 }
