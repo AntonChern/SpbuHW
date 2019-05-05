@@ -13,7 +13,9 @@ public class Controller {
     private String number = "0";
 
     private void updateExpression() {
-        expression += updateValue(display.getText());
+        if (!number.equals("")) {
+            expression += updateValue(isNotNumber() ? "0" : display.getText());
+        }
         number = "";
     }
 
@@ -33,6 +35,12 @@ public class Controller {
         }
         number = "0";
         display.setText("0");
+    }
+
+    private boolean isNotNumber() {
+        return display.getText().equals("Infinity") ||
+               display.getText().equals("-Infinity") ||
+               display.getText().equals("NaN");
     }
 
     public void act(ActionEvent actionEvent) {
@@ -73,7 +81,7 @@ public class Controller {
             case "subtraction":
             case "multiplication":
             case "division": {
-                if (display.getText().equals("Infinity") || display.getText().equals("-Infinity") || display.getText().equals("NaN")) {
+                if (isNotNumber()) {
                     break;
                 }
                 updateExpression();
@@ -93,6 +101,7 @@ public class Controller {
                 display.setText(result);
                 dynamicExpression.setText("");
                 expression = "";
+                number = "0";
                 break;
             }
             case "deletion": {

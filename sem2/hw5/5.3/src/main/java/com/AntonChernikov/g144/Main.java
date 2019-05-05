@@ -25,7 +25,8 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         primaryStage.setTitle("Calculator");
         primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
+        primaryStage.setMinWidth(211);
+        primaryStage.setMinHeight(253);
         primaryStage.show();
     }
 }
