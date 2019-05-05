@@ -8,9 +8,16 @@ import javafx.scene.control.TextField;
 
 public class Controller {
 
+    @FXML
     public Spinner secondOperand;
+
+    @FXML
     public Spinner firstOperand;
+
+    @FXML
     public ChoiceBox<Character> operator;
+
+    @FXML
     public TextField result;
 
     /**
