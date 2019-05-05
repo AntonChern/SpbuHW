@@ -5,12 +5,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+import java.util.Map;
+
 public class Controller {
 
-    private int[] board = {0, 1, 2, 3, 4, 5, 6, 7, 8};
-    private int player = 'X';
-    private byte move = 0;
-
+    private TicTacToe game;
+    private Map<Integer, Button> buttons;
     public Label information;
 
     @FXML
@@ -40,139 +40,62 @@ public class Controller {
     @FXML
     public Button c3;
 
+
+    public void initialize() {
+        game = new TicTacToe();
+        buttons = Map.of(
+                0, a1,
+                1, b1,
+                2, c1,
+                3, a2,
+                4, b2,
+                5, c2,
+                6, a3,
+                7, b3,
+                8, c3);
+    }
+
     /**
-     * Method that processes the player's turn
+     * Method that processes the player's move
      * Sets a symbol on a pressed button
-     * Marks the move on the board
-     * Checks board for winnings of the corresponding player (after the fourth move)
-     * If there are 9 moves, then a draw
-     * Changes turn
+     * Makes a move in class TicTacToe
+     * Checks game for end
      * */
     public void makeMove(ActionEvent actionEvent) {
         Button pressedButton = (Button)actionEvent.getSource();
 
-        pressedButton.setText(toString(player));
+        pressedButton.setText(game.getPlayer());
         pressedButton.setDisable(true);
-        board[index(pressedButton)] = player;
 
-        move++;
-        if (move > 4) {
-            if (wins(board, player)) {
-                information.setText(turn(player) + " player win!");
-                disableAll();
-                return;
-            }
-
-            if (move == 9) {
-                information.setText("Draw");
-                disableAll();
-                return;
+        for (Map.Entry<Integer, Button> entry : buttons.entrySet()) {
+            if (entry.getValue().equals(pressedButton)) {
+                game.makeMove(entry.getKey());
+                break;
             }
         }
 
-        player = rival(player);
-        information.setText(turn(player) + " player's turn");
+        information.setText((game.getPlayer().equals("X") ? "1st" : "2nd") + " player's turn");
+
+        if (game.isFirstPlayerWin) {
+            information.setText("1st player win!");
+            disableAll();
+        }
+        if (game.isSecondPlayerWin) {
+            information.setText("2nd player win!");
+            disableAll();
+        }
+        if (game.isDraw) {
+            information.setText("Draw");
+            disableAll();
+        }
     }
 
-    private String turn(int player) {
-        return player == 'X' ? "1st" : "2nd";
-    }
-
-
-    private String toString(int player) {
-        return player == 'X' ? "X" : "O";
-    }
-
+    /** Method making inactive the remaining empty cells after the end of the game */
     private void disableAll() {
         for (int i = 0; i < 9; i++) {
-            if (cell(i).getText().equals("")) {
-                cell(i).setDisable(true);
+            if (buttons.get(i).getText().equals("")) {
+                buttons.get(i).setDisable(true);
             }
         }
-    }
-
-    private int index(Button button) {
-        switch (button.getId()) {
-            case "a1": {
-                return 0;
-            }
-            case "a2": {
-                return 1;
-            }
-            case "a3": {
-                return 2;
-            }
-            case "b1": {
-                return 3;
-            }
-            case "b2": {
-                return 4;
-            }
-            case "b3": {
-                return 5;
-            }
-            case "c1": {
-                return 6;
-            }
-            case "c2": {
-                return 7;
-            }
-            case "c3": {
-                return 8;
-            }
-            default: {
-                return -1;
-            }
-        }
-    }
-
-    private Button cell(int index) {
-        switch (index) {
-            case 0: {
-                return a1;
-            }
-            case 1: {
-                return a2;
-            }
-            case 2: {
-                return a3;
-            }
-            case 3: {
-                return b1;
-            }
-            case 4: {
-                return b2;
-            }
-            case 5: {
-                return b3;
-            }
-            case 6: {
-                return c1;
-            }
-            case 7: {
-                return c2;
-            }
-            case 8: {
-                return c3;
-            }
-            default: {
-                return new Button();
-            }
-        }
-    }
-
-    private boolean wins(int[] board, int player) {
-        return (board[0] == player && board[1] == player && board[2] == player) ||
-               (board[3] == player && board[4] == player && board[5] == player) ||
-               (board[6] == player && board[7] == player && board[8] == player) ||
-               (board[0] == player && board[3] == player && board[6] == player) ||
-               (board[1] == player && board[4] == player && board[7] == player) ||
-               (board[2] == player && board[5] == player && board[8] == player) ||
-               (board[0] == player && board[4] == player && board[8] == player) ||
-               (board[2] == player && board[4] == player && board[6] == player);
-    }
-
-    private int rival(int player) {
-        return player == 'X' ? 'O' : 'X';
     }
 }
