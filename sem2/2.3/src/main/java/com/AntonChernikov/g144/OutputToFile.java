@@ -2,14 +2,10 @@ package com.AntonChernikov.g144;
 
 import java.io.*;
 
-/**
- * Class describing output matrix in a spiral to file
- * */
+/** Class describing output matrix in a spiral to file */
 public class OutputToFile extends AbstractOutputer implements Outputer {
 
-    /**
-     * @inheritDoc
-     * */
+    /** {@inheritDoc} */
     public void output(int[][] matrix) {
         try (FileOutputStream file = new FileOutputStream("File.txt")) {
             out(matrix, file);

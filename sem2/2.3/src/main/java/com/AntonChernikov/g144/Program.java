@@ -3,9 +3,7 @@ package com.AntonChernikov.g144;
 import java.util.Scanner;
 
 public class Program {
-    /**
-     * Initialization and output of the matrix in a spiral in two ways: to console or to file
-     * */
+    /** Initialization and output of the matrix in a spiral in two ways: to console or to file */
     public static void main(String[] args) {
         int length = 5;
         int[][] matrix = new int[length][length];
