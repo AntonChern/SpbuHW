@@ -3,9 +3,7 @@ package com.AntonChernikov.g144;
 import java.util.Scanner;
 
 public class Program {
-    /**
-     * Program describing action on the AVL tree
-     * */
+    /** Program describing action on the AVL tree */
     public static void main(String[] args) {
         AVLTree<Integer> tree = new AVLTree<>();
         Scanner in = new Scanner(System.in);
