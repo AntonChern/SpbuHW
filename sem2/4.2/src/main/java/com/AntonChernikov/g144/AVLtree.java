@@ -213,40 +213,40 @@ class AVLTree<T> implements Collection<T> {
         /**
          * Method updating height
          * */
-        private void updateHeight(Node node) {
-            int heightLeft = height(node.leftChild);
-            int heightRight = height(node.rightChild);
-            node.height = ((heightLeft > heightRight) ? heightLeft : heightRight) + 1;
+        private void updateHeight() {
+            int heightLeft = height(this.leftChild);
+            int heightRight = height(this.rightChild);
+            this.height = ((heightLeft > heightRight) ? heightLeft : heightRight) + 1;
         }
 
         /**
          * Method returning the difference between the height of the right and left nodes
          * */
-        private int balanceFactor(Node node) {
-            return height(node.rightChild) - height(node.leftChild);
+        private int balanceFactor() {
+            return height(this.rightChild) - height(this.leftChild);
         }
 
         /**
          * Method performing rotate to left around this node
          * */
-        private Node rotateLeft(Node root) {
-            Node pivot = root.rightChild;
-            root.rightChild = pivot.leftChild;
-            pivot.leftChild = root;
-            updateHeight(root);
-            updateHeight(pivot);
+        private Node rotateLeft() {
+            Node pivot = this.rightChild;
+            this.rightChild = pivot.leftChild;
+            pivot.leftChild = this;
+            this.updateHeight();
+            pivot.updateHeight();
             return pivot;
         }
 
         /**
          * Method performing rotate to right around this node
          * */
-        private Node rotateRight(Node root) {
-            Node pivot = root.leftChild;
-            root.leftChild = pivot.rightChild;
-            pivot.rightChild = root;
-            updateHeight(root);
-            updateHeight(pivot);
+        private Node rotateRight() {
+            Node pivot = this.leftChild;
+            this.leftChild = pivot.rightChild;
+            pivot.rightChild = this;
+            this.updateHeight();
+            pivot.updateHeight();
             return pivot;
         }
 
@@ -254,22 +254,22 @@ class AVLTree<T> implements Collection<T> {
          * Method balancing this node
          * */
         private Node balance() {
-            updateHeight(this);
-            if (balanceFactor(this) == 2)
+            this.updateHeight();
+            if (this.balanceFactor() == 2)
             {
-                if (balanceFactor(this.rightChild) < 0)
+                if (this.rightChild.balanceFactor() < 0)
                 {
-                    this.rightChild = rotateRight(this.rightChild);
+                    this.rightChild = this.rightChild.rotateRight();
                 }
-                return rotateLeft(this);
+                return this.rotateLeft();
             }
-            if (balanceFactor(this) == -2)
+            if (this.balanceFactor() == -2)
             {
-                if (balanceFactor(this.leftChild) > 0)
+                if (this.leftChild.balanceFactor() > 0)
                 {
-                    this.leftChild = rotateLeft(this.leftChild);
+                    this.leftChild = this.leftChild.rotateLeft();
                 }
-                return rotateRight(this);
+                return this.rotateRight();
             }
             return this;
         }
