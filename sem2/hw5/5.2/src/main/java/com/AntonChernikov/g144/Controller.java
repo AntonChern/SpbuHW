@@ -22,15 +22,11 @@ public class Controller {
         operator.setItems(FXCollections.observableArrayList('+', '-', '*', '/'));
     }
 
-
     /**
-     * Method that counts the value of the operands and the operator and writes it to the text field
+     * Method that counts the value of the operands and the operator and returning it
      * */
-    public void calculate() {
+    public static double calculate(double firstValue, double secondValue, char operation) {
         double answer = 0;
-        double firstValue = (Integer)firstOperand.getValue();
-        double secondValue = (Integer)secondOperand.getValue();
-        char operation = operator.getValue();
         switch (operation) {
             case '+': {
                 answer = firstValue + secondValue;
@@ -49,6 +45,13 @@ public class Controller {
                 break;
             }
         }
-        result.setText(answer + "");
+        return answer;
+    }
+
+    /**
+     * Method writing counted answer to the text field
+     * */
+    public void setAnswer() {
+        result.setText(calculate((Integer)firstOperand.getValue(), (Integer)secondOperand.getValue(), operator.getValue()) + "");
     }
 }
