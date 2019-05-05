@@ -1,17 +1,17 @@
 package com.AntonChernikov.g144;
 
-import java.io.FileReader;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.function.Function;
 
-/**
- * Class describing the functionality of the hash table
- * */
-public class HashTable {
-    private ArrayList<Integer>[] buckets;
+/** Class describing the functionality of the hash table */
+public class HashTable<T> {
+    private ArrayList<T>[] buckets;
     private int size;
-    private Function<Integer, Integer> hashFunction = n -> {
+    private Function<T, Integer> hashFunction = t -> {
+        int n = t.hashCode();
         n += ~(n << 16);
         n ^=  (n >>  5);
         n +=  (n <<  3);
@@ -21,13 +21,11 @@ public class HashTable {
         return n;
     };
 
-    /**
-     * Method returning new array of lists by the number of cells equal to size
-     * */
-    private ArrayList<Integer>[] createArrayOfLists(int size) {
-        ArrayList<Integer>[] result = new ArrayList[size];
+    /** Method returning new array of lists by the number of cells equal to size */
+    private ArrayList<T>[] createArrayOfLists(int size) {
+        ArrayList<T>[] result = new ArrayList[size];
         for (int i = 0; i < size; i++) {
-            result[i] = new ArrayList<Integer>();
+            result[i] = new ArrayList<T>();
         }
         return result;
     }
@@ -37,38 +35,29 @@ public class HashTable {
         this.size = size;
     }
 
-    /**
-     * Method creating the table again
-     * */
-    private ArrayList<Integer>[] update() {
-        ArrayList<Integer>[] newBuckets = createArrayOfLists(size);
-        for (ArrayList<Integer> current : buckets) {
-            for (Integer value : current) {
+    /** Method creating the table again */
+    private ArrayList<T>[] update() {
+        ArrayList<T>[] newBuckets = createArrayOfLists(size);
+        for (ArrayList<T> current : buckets) {
+            for (T value : current) {
                 newBuckets[hash(value)].add(value);
             }
         }
         return newBuckets;
     }
 
-    /**
-     * Method changing hash function and recreating the hash table
-     * */
-    public void changeHash(Function<Integer, Integer> function) {
+    /** Method changing hash function and recreating the hash table */
+    public void changeHash(Function<T, Integer> function) {
         hashFunction = function;
         buckets = update();
     }
 
-    /**
-     * Method returning hash value
-     * */
-    private int hash(int value) {
-        value = hashFunction.apply(value);
-        return value % size;
+    /** Method returning hash value */
+    private int hash(T value) {
+        return hashFunction.apply(value) % size;
     }
 
-    /**
-     * Method expanding hash table two times
-     * */
+    /** Method expanding hash table two times */
     private void expand() {
         size *= 2;
         buckets = update();
@@ -78,17 +67,15 @@ public class HashTable {
      * Method adding value to the table
      * If the table is full, it is replaced by a more extended
      * */
-    public void add(int value) {
+    public void add(T value) {
         if (getLoadFactor() >= 1) {
             expand();
         }
         buckets[hash(value)].add(value);
     }
 
-    /**
-     * Method removing value from the table
-     * */
-    public void remove(int value) {
+    /** Method removing value from the table */
+    public void remove(T value) {
         for (int i = 0; i < buckets[hash(value)].size(); i++) {
             if (buckets[hash(value)].get(i) == value) {
                 buckets[hash(value)].remove(i);
@@ -97,37 +84,23 @@ public class HashTable {
         }
     }
 
-    /**
-     * Method checking value for existence
-     * */
-    public boolean exists(int value) {
-        for (Integer current : buckets[hash(value)]) {
-            if (current == value) {
+    /** Method checking value for existence */
+    public boolean exists(T value) {
+        for (T current : buckets[hash(value)]) {
+            if (current.equals(value)) {
                 return true;
             }
         }
         return false;
     }
 
-    /**
-     * Method filling a hash table with data from a file
-     * */
+    /** Method filling a hash table with data from a file */
     public void fill(String fileName) {
-        try (FileReader file = new FileReader(fileName)) {
-            int current = 0;
-            current = file.read();
-            while (current != -1) {
-                int value = current - '0';
-                current = file.read();
-                while (current != ' ' && current != -1) {
-                    value *= 10;
-                    value += current - '0';
-                    current = file.read();
-                }
-                while (current == ' ' && current != -1) {
-                    current = file.read();
-                }
-                add(value);
+        try {
+            File file = new File(fileName);
+            Scanner fin = new Scanner(file);
+            while (fin.hasNextInt()) {
+                add((T)fin.next());
             }
         } catch (IOException e) {
             System.out.println("Input/output error: " + e);
@@ -168,9 +141,7 @@ public class HashTable {
         return (double) getFilledCellsNumber() / size;
     }
 
-    /**
-     * Method printing statistics
-     * */
+    /** Method printing statistics */
     public void printStatistics() {
         System.out.println("Amount of cells: " + size);
         System.out.println("Load factor: " + getLoadFactor());

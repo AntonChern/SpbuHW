@@ -4,9 +4,7 @@ import java.util.Scanner;
 import java.util.function.Function;
 
 public class Program {
-    /**
-     * Program allowing perform actions on a hash table
-     * */
+    /** Program allowing perform actions on a hash table */
     public static void main(String[] args) {
         HashTable table = new HashTable(5);
 
