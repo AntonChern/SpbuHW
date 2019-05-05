@@ -69,7 +69,8 @@ public class Program {
                     Function<Integer, Integer> hashFunction = n -> n;
                     switch (index) {
                         case 0: {
-                            hashFunction = n -> {
+                            hashFunction = t -> {
+                                int n = t.hashCode();
                                 n += ~(n << 16);
                                 n ^=  (n >>  5);
                                 n +=  (n <<  3);
@@ -81,7 +82,8 @@ public class Program {
                             break;
                         }
                         case 1: {
-                            hashFunction = n -> {
+                            hashFunction = t -> {
+                                int n = t.hashCode();
                                 n ^= (n << 13);
                                 n ^= (n >>> 17);
                                 n ^= (n << 5);
@@ -90,7 +92,8 @@ public class Program {
                             break;
                         }
                         case 2: {
-                            hashFunction = n -> {
+                            hashFunction = t -> {
+                                int n = t.hashCode();
                                 n += (n << 3);
                                 n ^= (n >> 11);
                                 n += (n << 15);

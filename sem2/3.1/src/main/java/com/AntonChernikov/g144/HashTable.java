@@ -10,7 +10,7 @@ import java.util.function.Function;
 public class HashTable<T> {
     private ArrayList<T>[] buckets;
     private int size;
-    private Function<T, Integer> hashFunction = t -> {
+    public Function<T, Integer> hashFunction = t -> {
         int n = t.hashCode();
         n += ~(n << 16);
         n ^=  (n >>  5);
