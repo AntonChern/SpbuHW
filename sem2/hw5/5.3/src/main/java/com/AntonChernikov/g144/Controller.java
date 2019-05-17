@@ -12,6 +12,7 @@ public class Controller {
     private String expression = "";
     private String number = "0";
 
+    /** Method updating expression and nulling number */
     private void updateExpression() {
         if (!number.equals("")) {
             expression += updateValue(isNotNumber() ? "0" : display.getText());
@@ -19,6 +20,7 @@ public class Controller {
         number = "";
     }
 
+    /** Method discarding the extra zeros after the point of the value */
     private String updateValue(String value) {
         if (value.length() > 2) {
             String temp = value.replaceAll("0", "");
@@ -29,6 +31,7 @@ public class Controller {
         return value;
     }
 
+    /** Method nulling number */
     private void cleanNumber() {
         if (!expression.isEmpty() && Character.isDigit(expression.charAt(expression.length() - 1))) {
             expression = "";
@@ -37,12 +40,14 @@ public class Controller {
         display.setText("0");
     }
 
+    /** Method returning true if the result of counting is not number and false if it is*/
     private boolean isNotNumber() {
         return display.getText().equals("Infinity") ||
                display.getText().equals("-Infinity") ||
                display.getText().equals("NaN");
     }
 
+    /** Method reacting for action */
     public void act(ActionEvent actionEvent) {
         Button pressedButton = (Button)actionEvent.getSource();
         String pressedButtonId = pressedButton.getId();

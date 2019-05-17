@@ -3,9 +3,7 @@ package com.AntonChernikov.g144;
 import java.util.Stack;
 
 public class Calculator {
-    /**
-     * Method returning a postfix arithmetic expression
-     * */
+    /** Method returning a postfix arithmetic expression */
     public String postfixNotation(String expression) {
         StringBuilder outputLine = new StringBuilder();
         Stack<Character> stack = new Stack<>();
@@ -50,8 +48,7 @@ public class Calculator {
                         char element = stack.pop();
                         if (priority(element) >= priority(expression.charAt(i))) {
                             outputLine.append(element);
-                        }
-                        else {
+                        } else {
                             stack.push(element);
                             break;
                         }
@@ -67,11 +64,8 @@ public class Calculator {
         return outputLine.toString();
     }
 
-    /**
-     * Method calculating the value of arithmetic expression
-     * */
-    public String calculate(String expression)
-    {
+    /** Method calculating the value of arithmetic expression */
+    public String calculate(String expression) {
         if (expression.charAt(0) == '-') {
             expression = "0" + expression;
         }
@@ -84,8 +78,7 @@ public class Calculator {
         }
         String outputLine = postfixNotation(expression);
         Stack<Double> stack = new Stack<>();
-        for (int i = 0; i < outputLine.length(); i++)
-        {
+        for (int i = 0; i < outputLine.length(); i++) {
             switch (outputLine.charAt(i)) {
                 case '0':
                 case '1':
@@ -107,8 +100,7 @@ public class Calculator {
 
                         if (outputLine.charAt(i) == '.') {
                             existsFractional = true;
-                        }
-                        else {
+                        } else {
                             value = value * 10 + (outputLine.charAt(i) - '0');
                         }
                         i++;
