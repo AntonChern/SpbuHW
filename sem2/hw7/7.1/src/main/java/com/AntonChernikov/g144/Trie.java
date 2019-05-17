@@ -3,7 +3,7 @@ package com.AntonChernikov.g144;
 import java.io.*;
 import java.util.ArrayList;
 
-/** Class describing work with trie*/
+/** Class describing work with trie */
 public class Trie implements Serializer {
 
     private Node root;
@@ -13,7 +13,7 @@ public class Trie implements Serializer {
         root.quantity = 0;
     }
 
-    /** Method returning node with a given character from parent*/
+    /** Method returning node with a given character from parent */
     private Node getChildFrom(Node parent, char symbol) {
         for (Node child : parent.next) {
             if (child.symbol == symbol) {
@@ -23,7 +23,7 @@ public class Trie implements Serializer {
         return null;
     }
 
-    /** Method adding word to trie*/
+    /** Method adding word to trie */
     public boolean add(String element) {
         if (contains(element)) {
             return false;
@@ -50,7 +50,7 @@ public class Trie implements Serializer {
         return true;
     }
 
-    /** Method checking word for existence*/
+    /** Method checking word for existence */
     public boolean contains(String element) {
         Node current = root;
         for (int i = 0; i < element.length(); i++) {
@@ -63,7 +63,7 @@ public class Trie implements Serializer {
         return current.isTerminal;
     }
 
-    /** Method removing word from trie*/
+    /** Method removing word from trie */
     public boolean remove(String element) {
         if (!contains(element)) {
             return false;
@@ -93,12 +93,12 @@ public class Trie implements Serializer {
         return true;
     }
 
-    /** Method returning the number of words from trie*/
+    /** Method returning the number of words from trie */
     public int size() {
         return root.quantity;
     }
 
-    /** Method returning the number of words from trie starting with the given prefix*/
+    /** Method returning the number of words from trie starting with the given prefix */
     public int howManyStartWithPrefix(String prefix) {
         Node current = root;
         for (int i = 0; i < prefix.length(); i++) {
@@ -111,7 +111,7 @@ public class Trie implements Serializer {
         return current.quantity;
     }
 
-    /** {@inheritDoc}*/
+    /** {@inheritDoc} */
     @Override
     public void serialize(OutputStream out) throws IOException {
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
@@ -119,7 +119,7 @@ public class Trie implements Serializer {
         writer.close();
     }
 
-    /** Method writing node to stream*/
+    /** Method writing node to stream */
     private void writeNode(BufferedWriter writer, Node node) throws IOException {
         writer.write(node.isTerminal + "\n");
         writer.write(node.quantity + "\n");
@@ -131,7 +131,7 @@ public class Trie implements Serializer {
         }
     }
 
-    /** {@inheritDoc}*/
+    /** {@inheritDoc} */
     @Override
     public void deserialize(InputStream in) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
@@ -139,7 +139,7 @@ public class Trie implements Serializer {
         root = readNode(reader, root);
     }
 
-    /** Method returning the converted node from the stream*/
+    /** Method returning the converted node from the stream */
     private Node readNode(BufferedReader reader, Node node) throws IOException {
         node.isTerminal = Boolean.parseBoolean(reader.readLine());
         node.quantity = Integer.parseInt(reader.readLine());
@@ -152,7 +152,7 @@ public class Trie implements Serializer {
         return node;
     }
 
-    /** Class describing trie element*/
+    /** Class describing trie element */
     private class Node {
         private char symbol;
         private boolean isTerminal = false;
