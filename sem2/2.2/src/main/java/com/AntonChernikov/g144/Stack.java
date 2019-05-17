@@ -1,22 +1,19 @@
 package com.AntonChernikov.g144;
 
-/**
- * Interface describing the functionality of the stack
- * */
+import java.util.EmptyStackException;
+
+/** Interface describing the functionality of the stack */
 public interface Stack {
 
-    /**
-     * Method that adds a value to the top of the stack
-     * */
+    /** Method that adds a value to the top of the stack */
     void push(int value);
 
     /**
      * Method that returns the value at the top of the stack
+     * @throws EmptyStackException if stack is empty
      * */
-    int pop();
+    int pop() throws EmptyStackException;
 
-    /**
-     * Method checking stack for emptiness
-     * */
+    /** Method checking stack for emptiness */
     boolean isEmpty();
 }

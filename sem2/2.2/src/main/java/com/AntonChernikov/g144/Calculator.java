@@ -11,6 +11,7 @@ public class Calculator {
 
     /**
      * Method returning a postfix arithmetic expression
+     * @throws EmptyStackException if there is incorrect data
      * */
     public String postfixNotation(String expression) throws EmptyStackException {
         StringBuilder outputLine = new StringBuilder();
@@ -62,13 +63,14 @@ public class Calculator {
             }
         }
         while (!stack.isEmpty()) {
-            outputLine.append((char) stack.pop());
+            outputLine.append((char)stack.pop());
         }
         return outputLine.toString();
     }
 
     /**
      * Method calculating the value of arithmetic expression
+     * @throws EmptyStackException if there is incorrect data
      * */
     public int calculate(String expression) throws EmptyStackException {
         String outputLine = postfixNotation(expression);

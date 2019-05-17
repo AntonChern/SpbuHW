@@ -2,29 +2,23 @@ package com.AntonChernikov.g144;
 
 import java.util.EmptyStackException;
 
-/**
- * Class describing stack functionality using array
- * */
+/** Class describing stack functionality using array */
 public class StackOnArray implements Stack {
-    private int[] elements = {};
+    private int[] elements;
     private int lastIndex = 0;
 
     public StackOnArray(int size) {
         elements = new int[size];
     }
 
-    /**
-     * Method increasing the size of the array
-     * */
+    /** Method increasing the size of the array */
     private void increaseSize() {
         int[] newElements = new int[elements.length * 2];
         System.arraycopy(elements, 0, newElements, 0, elements.length);
         elements = newElements;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public void push(int value) {
         if (lastIndex == elements.length) {
             increaseSize();
@@ -32,20 +26,15 @@ public class StackOnArray implements Stack {
         elements[lastIndex++] = value;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public int pop() throws EmptyStackException {
-        try {
-            return elements[--lastIndex];
-        } catch (ArrayIndexOutOfBoundsException e) {
+        if (isEmpty()) {
             throw new EmptyStackException();
         }
+        return elements[--lastIndex];
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public boolean isEmpty() {
         return lastIndex == 0;
     }
