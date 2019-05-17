@@ -1,22 +1,19 @@
 package com.AntonChernikov.g144;
 
-/**
- * Class describing single linked list
- * */
+/** Class describing single linked list */
 public class List<T> {
 
     private ListElement first = null;
     private int size = 0;
 
-    /**
-     * Method checking list for emptiness
-     * */
+    /** Method checking list for emptiness */
     public boolean isEmpty() {
         return first == null;
     }
 
     /**
      * Method adding value to list
+     * @throws ElementExistsException if adding element already exists in the list
      * */
     public void add(T value) throws ElementExistsException {
         first = new ListElement(value, first);
@@ -25,6 +22,7 @@ public class List<T> {
 
     /**
      * Method removing value from list
+     * @throws NoElementException if removing element does not exist in the list
      * */
     public void remove(T value) throws NoElementException {
         if (first.value.equals(value)) {
@@ -43,9 +41,7 @@ public class List<T> {
         }
     }
 
-    /**
-     * Method checking the existence of an element
-     * */
+    /** Method checking the existence of an element */
     public boolean exists(T value) {
         ListElement current = first;
         while (current != null) {
@@ -57,9 +53,7 @@ public class List<T> {
         return false;
     }
 
-    /**
-     * Method returning list size
-     * */
+    /** Method returning list size */
     public int size() {
         return size;
     }
@@ -74,28 +68,3 @@ public class List<T> {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

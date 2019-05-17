@@ -1,13 +1,9 @@
 package com.AntonChernikov.g144;
 
-/**
- * Class describing unique list
- * */
-public class UniqueList<T> extends List<T>{
+/** Class describing unique list */
+public class UniqueList<T> extends List<T> {
 
-    /**
-     * @inheritDoc
-     * */
+    /** {@inheritDoc} */
     @Override
     public void add(T value) throws ElementExistsException {
         if (exists(value)) {
@@ -18,9 +14,7 @@ public class UniqueList<T> extends List<T>{
         }
     }
 
-    /**
-     * @inheritDoc
-     * */
+    /** {@inheritDoc} */
     @Override
     public void remove(T value) throws NoElementException {
         if (!exists(value)) {
@@ -31,16 +25,3 @@ public class UniqueList<T> extends List<T>{
         }
     }
 }
-
-class ElementExistsException extends Exception {
-}
-
-class NoElementException extends Exception {
-}
-
-
-
-
-
-
-

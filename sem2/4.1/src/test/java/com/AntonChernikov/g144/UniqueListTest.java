@@ -12,9 +12,9 @@ class UniqueListTest {
         Integer value = 5;
         try {
             list.add(value);
-        } catch (ElementExistsException e) {
-            System.out.println("This element already exists\n");
-        }
+        } catch (ElementExistsException ignore) {}
+        assertThrows(ElementExistsException.class, () -> list.add(value));
+
         assertTrue(list.exists(value));
     }
 
@@ -25,11 +25,9 @@ class UniqueListTest {
         try {
             list.add(value);
             list.remove(value);
-        } catch (ElementExistsException e) {
-            System.out.println("This element already exists\n");
-        } catch (NoElementException e) {
-            System.out.println("There is no such element");
-        }
+        } catch (ElementExistsException | NoElementException ignore) {}
+        assertThrows(NoElementException.class, () -> list.remove(value));
+
         assertTrue(!list.exists(value));
     }
 
