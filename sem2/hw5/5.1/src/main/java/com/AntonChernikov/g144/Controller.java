@@ -13,9 +13,7 @@ public class Controller {
     @FXML
     private Slider slider;
 
-    /**
-     * Method synchronizing the state of the slider with the state of the progress bar
-     * */
+    /** Method synchronizing the state of the slider with the state of the progress bar */
     public void setValue(MouseEvent mouseEvent) {
         progressBar.setProgress(slider.getValue() / 100);
     }
