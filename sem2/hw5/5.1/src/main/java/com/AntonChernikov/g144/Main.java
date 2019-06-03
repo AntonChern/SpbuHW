@@ -20,7 +20,7 @@ public class Main extends Application {
         try {
             root = FXMLLoader.load(getClass().getClassLoader().getResource("main.fxml"));
         } catch (IOException exc) {
-            throw new RuntimeException(exc);
+            exc.printStackTrace();
         }
         Scene scene = new Scene(root);
         primaryStage.setTitle("Task 5.1");
