@@ -1,103 +1,137 @@
 package com.AntonChernikov.g144;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Scanner;
 
 public class Main extends Application {
 
-    public static void main(String[] args) {
-        launch(args);
+    private GameConnection serverConnection;
+    private GameConnection clientConnection;
+    private String ip;
+    private int port = 8189;
+
+    /** Method building interface of game for client */
+    private Parent buildWindowForClient(Stage primaryStage) {
+        AnchorPane pane = new AnchorPane();
+        pane.setPrefWidth(200);
+        pane.setPrefHeight(80);
+
+        Label label = new Label("Ip-address: ");
+        label.setPrefSize(70, 20);
+        label.setLayoutX(10);
+        label.setLayoutY(10);
+        label.setAlignment(Pos.CENTER);
+        label.setTextAlignment(TextAlignment.CENTER);
+        pane.getChildren().add(label);
+
+        TextField textField = new TextField();
+        textField.setPrefSize(100, 20);
+        textField.setLayoutX(85);
+        textField.setLayoutY(10);
+        pane.getChildren().add(textField);
+
+        Button connectBtn = new Button("Connect");
+        connectBtn.setPrefSize(100, 20);
+        connectBtn.setLayoutX(50);
+        connectBtn.setLayoutY(50);
+
+        connectBtn.setOnAction(event -> {
+            ip = textField.getText();
+            clientConnection = new Client(ip, port, (Stage)connectBtn.getScene().getWindow());
+            try {
+                clientConnection.startConnection();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            primaryStage.close();
+        });
+        pane.getChildren().add(connectBtn);
+
+        return pane;
     }
 
-    String ip = "";
+    /** Method building interface of game for server */
+    private Parent buildWindowForServer() {
+        AnchorPane pane = new AnchorPane();
+        pane.setPrefWidth(200);
+        pane.setPrefHeight(100);
+
+        ProgressIndicator progressIndicator = new ProgressIndicator();
+        progressIndicator.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
+        progressIndicator.setLayoutX(75);
+        progressIndicator.setLayoutY(35);
+        pane.getChildren().add(progressIndicator);
+
+        Label label = new Label("Waiting to connect");
+        label.setPrefSize(200, 20);
+        label.setLayoutX(0);
+        label.setLayoutY(5);
+        label.setTextAlignment(TextAlignment.CENTER);
+        label.setAlignment(Pos.CENTER);
+        pane.getChildren().add(label);
+
+        try {
+            serverConnection.startConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return pane;
+    }
 
     @Override
     public void start(Stage primaryStage) {
 
         AnchorPane pane = new AnchorPane();
-        pane.setPrefWidth(300);
-        pane.setPrefHeight(300);
+
+        pane.setPrefWidth(170);
+        pane.setPrefHeight(100);
 
         Button createServerBtn = new Button("Create server");
-        createServerBtn.setMinSize(20, 10);
-        createServerBtn.setLayoutX(5);
-        createServerBtn.setLayoutY(5);
+        createServerBtn.setPrefSize(100, 20);
+        createServerBtn.setLayoutX(35);
+        createServerBtn.setLayoutY(25);
         createServerBtn.setOnAction(event -> {
-            AnchorPane waitPane = new AnchorPane();
-            waitPane.setPrefWidth(200);
-            waitPane.setPrefHeight(200);
-            ProgressIndicator progressIndicator = new ProgressIndicator();
-            progressIndicator.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
-            waitPane.getChildren().add(progressIndicator);
-            Scene scene = new Scene(waitPane, 200, 200);
-            primaryStage.setTitle("Waiting");
-            primaryStage.setScene(scene);
-            primaryStage.show();
-
-            Server server = new Server();
-
-            server.waitMove();
-//            primaryStage.close();
-
-
+            primaryStage.close();
+            Stage stage = new Stage();
+            serverConnection = new Server(port, stage);
+            stage.setScene(new Scene(buildWindowForServer(), 200, 100));
+            stage.setTitle("Waiting");
+            stage.show();
         });
         pane.getChildren().add(createServerBtn);
 
         Button joinServerBtn = new Button("Join to server");
-        joinServerBtn.setMinSize(20, 10);
-        joinServerBtn.setLayoutX(5);
-        joinServerBtn.setLayoutY(30);
+        joinServerBtn.setPrefSize(100, 20);
+        joinServerBtn.setLayoutX(35);
+        joinServerBtn.setLayoutY(55);
         joinServerBtn.setOnAction(event -> {
-            AnchorPane connectPane = new AnchorPane();
-            connectPane.setPrefWidth(200);
-            connectPane.setPrefHeight(200);
-            TextField textField = new TextField();
-            textField.setPrefSize(150, 20);
-            textField.setLayoutX(5);
-            textField.setLayoutY(5);
-            connectPane.getChildren().add(textField);
-
             Stage stage = new Stage();
-
-            Button connectBtn = new Button("Connect");
-            connectBtn.setPrefSize(80, 10);
-            connectBtn.setLayoutX(5);
-            connectBtn.setLayoutY(30);
-            connectBtn.setOnAction(event1 -> {
-                ip = textField.getText();
-                stage.close();
-            });
-            connectPane.getChildren().add(connectBtn);
-
-            Scene scene = new Scene(connectPane, 200, 200);
-            stage.setTitle("Waiting");
+            Scene scene = new Scene(buildWindowForClient(primaryStage), 200, 80);
+            stage.setTitle("Joining");
             stage.setScene(scene);
-            stage.showAndWait();
-            Client client = new Client(ip);
-            client.waitMove();
-//            primaryStage.close();
-
-
+            stage.show();
         });
         pane.getChildren().add(joinServerBtn);
-
-        Scene scene = new Scene(pane, 300, 300);
+        Scene scene = new Scene(pane, 170, 100);
         primaryStage.setTitle("Menu");
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
 
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }

@@ -13,10 +13,6 @@ public class TicTacToe {
 
     private int lineLength = (int)Math.sqrt(board.length);
 
-    public void setMove(int index, int player) {
-        board[index] = player;
-    }
-
     /**
      * Method processing the player's move
      * Writes a move to the board
@@ -24,8 +20,10 @@ public class TicTacToe {
      * If there are 9 moves, then a draw
      * Changes turn
      * */
-    public void makeMove(int index, int turn) {
-        player.setTurn(turn);
+    public boolean makeMove(int index) {
+        if (isFirstPlayerWin || isSecondPlayerWin || isDraw) {
+            return false;
+        }
         board[index] = player.symbol;
 
         move++;
@@ -43,14 +41,21 @@ public class TicTacToe {
                         break;
                     }
                 }
-                return;
+                return true;
             }
 
             if (move == 9) {
                 isDraw = true;
-                return;
+                return true;
             }
         }
+
+        player.changeTurn();
+        return true;
+    }
+
+    public void changeTurn() {
+        player.changeTurn();
     }
 
     /** Method returning symbol of current player */
@@ -65,10 +70,6 @@ public class TicTacToe {
 
         private Player(int symbol) {
             this.symbol = symbol;
-        }
-
-        private void setTurn(int player) {
-            symbol = player;
         }
 
         /** Method changing turn of player */
