@@ -1,5 +1,6 @@
 package com.AntonChernikov.g144;
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.function.Function;
 
@@ -55,7 +56,11 @@ public class Program {
                     break;
                 }
                 case 5: {
-                    table.fill("File.txt");
+                    try {
+                        table.fill("File.txt");
+                    } catch (IOException e) {
+                        System.out.println("Input/output error: " + e);
+                    }
                     System.out.println("Table filled\n");
                     break;
                 }

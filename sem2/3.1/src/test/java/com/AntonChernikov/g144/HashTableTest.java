@@ -3,7 +3,7 @@ package com.AntonChernikov.g144;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,7 +27,7 @@ class HashTableTest {
     }
 
     @Test
-    void fill() throws FileNotFoundException {
+    void fill() throws IOException {
         HashTable table = new HashTable(5);
         String fileName = "File.txt";
         table.fill(fileName);

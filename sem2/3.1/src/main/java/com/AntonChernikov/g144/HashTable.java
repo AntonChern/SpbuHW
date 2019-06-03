@@ -10,7 +10,7 @@ import java.util.function.Function;
 public class HashTable<T> {
     private ArrayList<T>[] buckets;
     private int size;
-    public Function<T, Integer> hashFunction = t -> {
+    private Function<T, Integer> hashFunction = t -> {
         int n = t.hashCode();
         n += ~(n << 16);
         n ^=  (n >>  5);
@@ -94,16 +94,15 @@ public class HashTable<T> {
         return false;
     }
 
-    /** Method filling a hash table with data from a file */
-    public void fill(String fileName) {
-        try {
-            File file = new File(fileName);
-            Scanner fin = new Scanner(file);
-            while (fin.hasNextInt()) {
-                add((T)fin.next());
-            }
-        } catch (IOException e) {
-            System.out.println("Input/output error: " + e);
+    /**
+     * Method filling a hash table with data from a file
+     * @throws IOException if it is input/output error
+     * */
+    public void fill(String fileName) throws IOException {
+        File file = new File(fileName);
+        Scanner fin = new Scanner(file);
+        while (fin.hasNextInt()) {
+            add((T)fin.next());
         }
     }
 
