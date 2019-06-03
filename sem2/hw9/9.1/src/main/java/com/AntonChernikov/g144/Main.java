@@ -22,7 +22,7 @@ public class Main extends Application {
         launch(args);
     }
 
-    String ip = "8189";
+    String ip = "";
 
     @Override
     public void start(Stage primaryStage) {
@@ -47,21 +47,11 @@ public class Main extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
 
-            try (ServerSocket serverSocket = new ServerSocket(8189)) {
+            Server server = new Server();
 
-                Socket socket = serverSocket.accept();
+            server.waitMove();
+//            primaryStage.close();
 
-                Scanner scanner = new Scanner(socket.getInputStream());
-                PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-
-                Server server = new Server(socket.getInputStream(), socket.getOutputStream());
-
-                server.initialize();
-                primaryStage.close();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
         });
         pane.getChildren().add(createServerBtn);
@@ -96,21 +86,10 @@ public class Main extends Application {
             stage.setTitle("Waiting");
             stage.setScene(scene);
             stage.showAndWait();
+            Client client = new Client(ip);
+            client.waitMove();
+//            primaryStage.close();
 
-            try (Socket socket = new Socket()) {
-                socket.connect(new InetSocketAddress(ip, 8189));
-
-                Scanner scanner = new Scanner(System.in);
-                PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-
-
-                Client client = new Client(socket.getInputStream(), socket.getOutputStream());
-                client.initialize();
-                primaryStage.close();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
         });
         pane.getChildren().add(joinServerBtn);

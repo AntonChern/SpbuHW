@@ -6,7 +6,6 @@ public class TicTacToe {
     public boolean isFirstPlayerWin = false;
     public boolean isSecondPlayerWin = false;
     public boolean isDraw = false;
-//    private boolean[] isCell = new boolean[9];
 
     private int[] board = {0, 1, 2, 3, 4, 5, 6, 7, 8};
     private Player player = new Player('X');
@@ -14,11 +13,9 @@ public class TicTacToe {
 
     private int lineLength = (int)Math.sqrt(board.length);
 
-//    public TicTacToe() {
-//        for (int i = 0; i < isCell.length; i++) {
-//            isCell[i] = true;
-//        }
-//    }
+    public void setMove(int index, int player) {
+        board[index] = player;
+    }
 
     /**
      * Method processing the player's move
@@ -27,9 +24,9 @@ public class TicTacToe {
      * If there are 9 moves, then a draw
      * Changes turn
      * */
-    public void makeMove(int index) {
+    public void makeMove(int index, int turn) {
+        player.setTurn(turn);
         board[index] = player.symbol;
-//        isCell[index] = false;
 
         move++;
         if (move > 4) {
@@ -54,8 +51,6 @@ public class TicTacToe {
                 return;
             }
         }
-
-        player.changeTurn();
     }
 
     /** Method returning symbol of current player */
@@ -70,6 +65,10 @@ public class TicTacToe {
 
         private Player(int symbol) {
             this.symbol = symbol;
+        }
+
+        private void setTurn(int player) {
+            symbol = player;
         }
 
         /** Method changing turn of player */
