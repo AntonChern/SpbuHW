@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane fx:controller="com.AntonChernikov.g144.Controller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="375.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.172-ea">
+<columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="50.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="85.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="25.0" minWidth="10.0" prefWidth="25.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="115.0" />
+</columnConstraints>
+<rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+</rowConstraints>
+    <children>
+    <Spinner onKeyPressed="#setAnswer" onMouseClicked="#setAnswer" min="-9999" max="9999" fx:id="firstOperand" editable="true" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="70.0">
+        <GridPane.margin>
+            <Insets left="20.0" right="10.0" />
+        </GridPane.margin>
+    </Spinner>
+    <Spinner onKeyPressed="#setAnswer" onMouseClicked="#setAnswer" min="-9999" max="9999" fx:id="secondOperand" editable="true" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="70.0" GridPane.columnIndex="2">
+        <GridPane.margin>
+            <Insets right="15.0" />
+        </GridPane.margin>
+    </Spinner>
+    <TextField fx:id="result" editable="false" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="80.0" GridPane.columnIndex="4">
+        <GridPane.margin>
+            <Insets right="35.0" />
+        </GridPane.margin>
+    </TextField>
+    <ChoiceBox onAction="#setAnswer" fx:id="operator" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="40.0" GridPane.columnIndex="1">
+        <GridPane.margin>
+            <Insets right="10.0" />
+        </GridPane.margin>
+    </ChoiceBox>
+    <Label alignment="CENTER" prefHeight="6.0" prefWidth="10.0" text="=" GridPane.columnIndex="3" />
+</children>
+</GridPane>
+
