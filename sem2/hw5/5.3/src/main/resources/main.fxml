@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="215.0" prefWidth="195.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.AntonChernikov.g144.Controller">
+    <children>
+        <GridPane layoutX="10.0" layoutY="65.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="140.0" prefWidth="175.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="65.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="35.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="35.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="35.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="35.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="35.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="Button" />
+                <Button fx:id="digitEight" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#act" prefHeight="35.0" prefWidth="35.0" text="8" GridPane.columnIndex="1" />
+                <Button fx:id="digitFour" layoutX="45.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#act" prefHeight="35.0" prefWidth="35.0" text="4" GridPane.rowIndex="1" />
+                <Button fx:id="digitFive" layoutX="10.0" layoutY="45.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#act" prefHeight="35.0" prefWidth="35.0" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Button fx:id="digitSix" layoutX="45.0" layoutY="45.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#act" prefHeight="35.0" prefWidth="35.0" text="6" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <Button fx:id="digitNine" layoutX="80.0" layoutY="45.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#act" prefHeight="35.0" prefWidth="35.0" text="9" GridPane.columnIndex="2" />
+                <Button fx:id="clean" layoutX="80.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#act" prefHeight="35.0" prefWidth="35.0" text="C" GridPane.columnIndex="3" />
+                <Button fx:id="multiplication" layoutX="115.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#act" prefHeight="35.0" prefWidth="35.0" text="*" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                <Button fx:id="cleanEntry" layoutX="115.0" layoutY="45.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#act" prefHeight="35.0" prefWidth="35.0" text="CE" GridPane.columnIndex="4" />
+                <Button fx:id="division" layoutX="150.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#act" prefHeight="35.0" prefWidth="35.0" text="/" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                <Button fx:id="digitOne" layoutX="150.0" layoutY="45.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#act" prefHeight="35.0" prefWidth="35.0" text="1" GridPane.rowIndex="2" />
+                <Button fx:id="digitTwo" layoutX="10.0" layoutY="80.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#act" prefHeight="35.0" prefWidth="35.0" text="2" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Button fx:id="digitThree" layoutX="45.0" layoutY="80.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#act" prefHeight="35.0" prefWidth="35.0" text="3" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <Button fx:id="addition" layoutX="80.0" layoutY="80.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#act" prefHeight="35.0" prefWidth="35.0" text="+" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                <Button fx:id="subtraction" layoutX="115.0" layoutY="80.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#act" prefHeight="35.0" prefWidth="35.0" text="-" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                <Button fx:id="point" layoutX="150.0" layoutY="80.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#act" prefHeight="35.0" prefWidth="35.0" text="." GridPane.rowIndex="3" />
+                <Button fx:id="digitSeven" layoutX="10.0" layoutY="115.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#act" prefHeight="35.0" prefWidth="35.0" text="7" />
+                <Button fx:id="digitZero" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#act" prefHeight="35.0" prefWidth="35.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Button fx:id="equals" layoutX="45.0" layoutY="115.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#act" prefHeight="35.0" prefWidth="35.0" text="=" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <Button fx:id="deletion" layoutX="80.0" layoutY="115.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#act" prefHeight="35.0" prefWidth="70.0" text="DEL" GridPane.columnIndex="3" GridPane.columnSpan="2147483647" GridPane.rowIndex="3" />
+            </children>
+        </GridPane>
+        <TextField fx:id="display" alignment="BOTTOM_RIGHT" editable="false" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="175.0" text="0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+        <Label fx:id="dynamicExpression" alignment="CENTER_RIGHT" layoutX="11.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefHeight="10.0" prefWidth="173.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="12.0" />
+    </children>
+</AnchorPane>
