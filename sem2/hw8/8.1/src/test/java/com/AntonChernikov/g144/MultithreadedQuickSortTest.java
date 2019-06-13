@@ -31,10 +31,10 @@ class MultithreadedQuickSortTest {
             expectedNumbers[i] = i;
         }
 
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
         new ForkJoinPool().invoke(new MultithreadedQuickSort(numbers, 0, numbers.length - 1));
-        long time = System.currentTimeMillis() - start;
-        System.out.println("Time of work multithreaded sorting = " + time);
+        long time = System.nanoTime() - start;
+        System.out.println("Time of work multithreaded sorting = " + time + " nanoseconds");
 
         for (int i = 0; i < numbers.length; i++) {
             assertEquals(expectedNumbers[i], numbers[i]);

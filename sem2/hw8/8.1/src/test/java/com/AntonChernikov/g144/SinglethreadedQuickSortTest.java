@@ -31,11 +31,11 @@ class SingleThreadedQuickSortTest {
         }
 
 
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
         SingleThreadedQuickSort sorting = new SingleThreadedQuickSort();
         sorting.sort(numbers, 0, numbers.length - 1);
-        long time = System.currentTimeMillis() - start;
-        System.out.println("Time of work single threaded sorting = " + time);
+        long time = System.nanoTime() - start;
+        System.out.println("Time of work single threaded sorting = " + time + " nanoseconds");
 
         for (int i = 0; i < numbers.length; i++) {
             assertEquals(expectedNumbers[i], numbers[i]);
