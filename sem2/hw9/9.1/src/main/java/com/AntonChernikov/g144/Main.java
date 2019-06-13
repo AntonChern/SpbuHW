@@ -23,27 +23,27 @@ public class Main extends Application {
     /** Method building interface of game for client */
     private Parent buildWindowForClient(Stage primaryStage) {
         AnchorPane pane = new AnchorPane();
-        pane.setPrefWidth(200);
-        pane.setPrefHeight(80);
+        pane.setPrefWidth(300);
+        pane.setPrefHeight(150);
 
         Label label = new Label("Ip-address: ");
-        label.setPrefSize(70, 20);
-        label.setLayoutX(10);
-        label.setLayoutY(10);
+        label.setPrefSize(150, 40);
+        label.setLayoutX(0);
+        label.setLayoutY(25);
         label.setAlignment(Pos.CENTER);
         label.setTextAlignment(TextAlignment.CENTER);
         pane.getChildren().add(label);
 
         TextField textField = new TextField();
-        textField.setPrefSize(100, 20);
-        textField.setLayoutX(85);
-        textField.setLayoutY(10);
+        textField.setPrefSize(140, 40);
+        textField.setLayoutX(150);
+        textField.setLayoutY(25);
         pane.getChildren().add(textField);
 
         Button connectBtn = new Button("Connect");
-        connectBtn.setPrefSize(100, 20);
+        connectBtn.setPrefSize(200, 40);
         connectBtn.setLayoutX(50);
-        connectBtn.setLayoutY(50);
+        connectBtn.setLayoutY(85);
 
         connectBtn.setOnAction(event -> {
             ip = textField.getText();
@@ -63,17 +63,17 @@ public class Main extends Application {
     /** Method building interface of game for server */
     private Parent buildWindowForServer() {
         AnchorPane pane = new AnchorPane();
-        pane.setPrefWidth(200);
-        pane.setPrefHeight(100);
+        pane.setPrefWidth(250);
+        pane.setPrefHeight(150);
 
         ProgressIndicator progressIndicator = new ProgressIndicator();
         progressIndicator.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
-        progressIndicator.setLayoutX(75);
-        progressIndicator.setLayoutY(35);
+        progressIndicator.setLayoutX(100);
+        progressIndicator.setLayoutY(60);
         pane.getChildren().add(progressIndicator);
 
         Label label = new Label("Waiting to connect");
-        label.setPrefSize(200, 20);
+        label.setPrefSize(250, 30);
         label.setLayoutX(0);
         label.setLayoutY(5);
         label.setTextAlignment(TextAlignment.CENTER);
@@ -94,36 +94,36 @@ public class Main extends Application {
 
         AnchorPane pane = new AnchorPane();
 
-        pane.setPrefWidth(170);
-        pane.setPrefHeight(100);
+        pane.setPrefWidth(300);
+        pane.setPrefHeight(200);
 
         Button createServerBtn = new Button("Create server");
-        createServerBtn.setPrefSize(100, 20);
-        createServerBtn.setLayoutX(35);
-        createServerBtn.setLayoutY(25);
+        createServerBtn.setPrefSize(200, 40);
+        createServerBtn.setLayoutX(50);
+        createServerBtn.setLayoutY(40);
         createServerBtn.setOnAction(event -> {
             primaryStage.close();
             Stage stage = new Stage();
             serverConnection = new Server(port, stage);
-            stage.setScene(new Scene(buildWindowForServer(), 200, 100));
+            stage.setScene(new Scene(buildWindowForServer(), 250, 150));
             stage.setTitle("Waiting");
             stage.show();
         });
         pane.getChildren().add(createServerBtn);
 
         Button joinServerBtn = new Button("Join to server");
-        joinServerBtn.setPrefSize(100, 20);
-        joinServerBtn.setLayoutX(35);
-        joinServerBtn.setLayoutY(55);
+        joinServerBtn.setPrefSize(200, 40);
+        joinServerBtn.setLayoutX(50);
+        joinServerBtn.setLayoutY(120);
         joinServerBtn.setOnAction(event -> {
             Stage stage = new Stage();
-            Scene scene = new Scene(buildWindowForClient(primaryStage), 200, 80);
+            Scene scene = new Scene(buildWindowForClient(primaryStage), 300, 150);
             stage.setTitle("Joining");
             stage.setScene(scene);
             stage.show();
         });
         pane.getChildren().add(joinServerBtn);
-        Scene scene = new Scene(pane, 170, 100);
+        Scene scene = new Scene(pane, 300, 200);
         primaryStage.setTitle("Menu");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);

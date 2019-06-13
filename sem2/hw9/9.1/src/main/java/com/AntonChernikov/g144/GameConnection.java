@@ -87,7 +87,9 @@ public abstract class GameConnection {
     /** Method making active the remaining empty cells after move */
     private void unlockAll() {
         for (Button btn : buttons) {
-            btn.setDisable(false);
+            if (btn.getText().equals("")) {
+                btn.setDisable(false);
+            }
         }
     }
 
