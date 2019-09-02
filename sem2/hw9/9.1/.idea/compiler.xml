@@ -2,8 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="new9.2.myplugin.main" target="1.8" />
-      <module name="new9.2.myplugin.test" target="1.8" />
+      <module name="com.AntonChernikov.g144.work9.1.main" target="11" />
+      <module name="com.AntonChernikov.g144.work9.1.test" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
