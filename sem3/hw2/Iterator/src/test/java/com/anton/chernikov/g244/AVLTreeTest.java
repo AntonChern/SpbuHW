@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TreeTest {
+class AVLTreeTest {
 
     @Test
     void size() {
