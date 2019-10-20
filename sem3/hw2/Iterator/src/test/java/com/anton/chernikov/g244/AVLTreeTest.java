@@ -167,7 +167,7 @@ class AVLTreeTest {
             secondIterator.remove();
         }
 
-        for (int i = secondPoint + 1; i <= size; i++) {
+        for (int i = secondPoint; i <= size; i++) {
             assertEquals(Integer.valueOf(i), firstIterator.next());
         }
         assertFalse(firstIterator.hasNext());

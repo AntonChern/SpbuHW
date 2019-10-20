@@ -311,6 +311,7 @@ public class AVLTree<T> implements Collection<T> {
     private class AVLTreeIterator implements Iterator<T> {
 
         private ArrayDeque<T> elements;
+        private T bufferedValue;
 
         private AVLTreeIterator() {
             elements = new ArrayDeque<>();
@@ -347,13 +348,16 @@ public class AVLTree<T> implements Collection<T> {
         @Override
         public T next() {
             updateElements();
+            bufferedValue = elements.peekFirst();
             return elements.pollFirst();
         }
 
         /** {@inheritDoc} */
         @Override
         public void remove() {
-            AVLTree.this.remove(next());
+            updateElements();
+            AVLTree.this.remove(bufferedValue);
+            next();
         }
     }
 }
