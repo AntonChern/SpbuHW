@@ -64,7 +64,7 @@ public class Network {
     /** Method infecting a random computer */
     public void infect() {
         Random rand = new Random();
-        int infectedIndex = (int) (rand.nextDouble() * 100) % computers.length;
+        int infectedIndex = (int) (rand.nextDouble() * computers.length);
         infect(infectedIndex);
     }
 
