@@ -1,42 +1,37 @@
 package com.anton.chernikov.g244;
 
-/** Class describing computer */
+/** The Computer class describes computer which contains operating system, infection status and status of being at risk of infection */
 public class Computer {
     private OS os;
     private boolean isInfected;
     private boolean isLinked;
 
-    public Computer() {
-        isInfected = false;
-        isLinked = false;
-    }
-
-    /** Method infecting a computer */
+    /** Infects this computer */
     public void infect() {
         isInfected = true;
     }
 
-    /** Method returning computer infection status */
+    /** Returns computer infection status */
     public boolean isInfected() {
         return isInfected;
     }
 
-    /** Method marking a computer as at risk of infection */
+    /** Marks this computer as at risk of infection */
     public void setLink() {
         isLinked = true;
     }
 
-    /** Method returning the status of being at risk of infection */
+    /** Returns the status of being at risk of infection */
     public boolean isLinked() {
         return isLinked;
     }
 
-    /** Method setting the computer's operating system as selected */
+    /** Sets the computer's operating system as selected */
     public void setOS(OS os) {
         this.os = os;
     }
 
-    /** Method returning the computer operating system */
+    /** Returns the computer operating system */
     public OS getOS() {
         return os;
     }
