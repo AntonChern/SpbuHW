@@ -2,7 +2,7 @@ package com.anton.chernikov.g244;
 
 import java.util.Random;
 
-/** Class generating a landscape based on the Lagrange interpolation polynomial */
+/** The LandscapeGenerator class generates a landscape based on the Lagrange interpolation polynomial */
 public class LandscapeGenerator {
 
     private int pointsNum;
@@ -10,7 +10,7 @@ public class LandscapeGenerator {
     private int[] vertical;
     private double[] coef;
 
-    /** Constructor randomly choosing points to generate */
+    /** Randomly chooses points to generate */
     public LandscapeGenerator() {
         Random rand = new Random();
         pointsNum = (int)(rand.nextDouble() * 2) + 7;
@@ -38,7 +38,7 @@ public class LandscapeGenerator {
         }
     }
 
-    /** Function reading the value of a polynomial at a specified point */
+    /** Reads the value of a polynomial at a specified point */
     public double getCoordinate(double point) {
         double result = 0;
         for (int i = 0; i < pointsNum; i++) {

@@ -4,13 +4,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-/** Class describing the behavior of the cannon */
+/** The Cannon class describes the behavior of the cannon */
 public class Cannon extends Pane {
 
     private Pane barrel = new Pane();
     private Pane backWheel = new Pane();
 
-    /** Constructor adding cannon elements */
+    /** Adds cannon elements */
     public Cannon() {
         setPrefSize(42, 42);
 
@@ -31,7 +31,7 @@ public class Cannon extends Pane {
         getChildren().add(cannonTexture);
     }
 
-    /** Method moving the cannon according to the entered data */
+    /** Moves the cannon according to the entered data */
     public void push(double delta, LandscapeGenerator generator) {
         double result = getTranslateX() + Const.cannonShiftX + Const.cannonExtraShiftX * getScaleX() + delta;
         setScaleX(Math.signum(delta));
@@ -41,7 +41,7 @@ public class Cannon extends Pane {
         }
     }
 
-    /** Method changing barrel tilt */
+    /** Changes barrel tilt */
     public void rotate(double delta) {
         double result = barrel.getRotate() + delta;
         if (result >= Const.minAngle && result <= Const.maxAngle) {
@@ -49,7 +49,7 @@ public class Cannon extends Pane {
         }
     }
 
-    /** Method returning rotation */
+    /** Returns rotation */
     public double getRotation() {
         return barrel.getRotate();
     }

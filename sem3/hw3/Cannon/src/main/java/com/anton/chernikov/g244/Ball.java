@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-/** Class describing the behavior of the ball */
+/** The Ball class describes the behavior of the ball */
 public class Ball extends Pane {
 
     private double rotation;
@@ -13,7 +13,7 @@ public class Ball extends Pane {
     private int y;
     private int scale;
 
-    /** Constructor initializing all necessary parameters */
+    /** Initializes all necessary parameters */
     public Ball(double rotation, int x, int y, int scale) {
         ImageView ballTexture = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("ball.png")));
         getChildren().add(ballTexture);
@@ -27,7 +27,7 @@ public class Ball extends Pane {
         setTranslateY(y);
     }
 
-    /** Method moving the ball to the required coordinate */
+    /** Moves the ball to the required coordinate */
     public void push() {
         time += 0.25;
         setTranslateX(x + scale * time * Const.shootSpeed * Math.cos(Math.toRadians(rotation)));

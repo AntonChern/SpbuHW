@@ -24,7 +24,7 @@ public class Main extends Application {
     private ArrayList<Ball> balls = new ArrayList<>();
     private LandscapeGenerator generator = new LandscapeGenerator();
 
-    /** Method updating the information */
+    /** Updates the information */
     public void update() {
         for (Iterator<Ball> iterator = balls.iterator(); iterator.hasNext(); ) {
             Ball ball = iterator.next();
@@ -55,7 +55,7 @@ public class Main extends Application {
         }
     }
 
-    /** Method checking key for pressing */
+    /** Checks key for pressing */
     public boolean isPressed(KeyCode key) {
         return keys.getOrDefault(key, false);
     }
