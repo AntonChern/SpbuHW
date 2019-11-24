@@ -2,10 +2,7 @@ package com.anton.chernikov.g244;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -163,14 +160,46 @@ class AVLTreeTest {
             firstIterator.next();
             secondIterator.next();
         }
-        for (int i = firstPoint; i < secondPoint; i++) {
-            secondIterator.remove();
-        }
+        secondIterator.remove();
 
-        for (int i = secondPoint; i <= size; i++) {
-            assertEquals(Integer.valueOf(i), firstIterator.next());
+        for (int i = firstPoint; i < secondPoint; i++) {
+            secondIterator.next();
+        }
+        secondIterator.remove();
+
+        for (int i = firstPoint + 1; i <= size; i++) {
+            if (i != secondPoint) {
+                assertEquals(Integer.valueOf(i), firstIterator.next());
+            }
         }
         assertFalse(firstIterator.hasNext());
     }
 
+    @Test
+    void NoSuchElementExceptionIteratorTest() {
+        AVLTree<Integer> tree = new AVLTree<>();
+        int size = 10;
+        for (int i = 0; i < size; i++) {
+            tree.add(i + 1);
+        }
+        Iterator<Integer> iterator = tree.iterator();
+        for (int i = 0; i < size; i++) {
+            iterator.next();
+        }
+        assertThrows(NoSuchElementException.class, iterator::next);
+    }
+
+    @Test
+    void IllegalStateExceptionIteratorTest() {
+        AVLTree<Integer> tree = new AVLTree<>();
+        int size = 10;
+        for (int i = 0; i < size; i++) {
+            tree.add(i + 1);
+        }
+        Iterator<Integer> iterator = tree.iterator();
+        assertThrows(IllegalStateException.class, iterator::remove);
+        iterator.next();
+        iterator.remove();
+        assertThrows(IllegalStateException.class, iterator::remove);
+    }
 }

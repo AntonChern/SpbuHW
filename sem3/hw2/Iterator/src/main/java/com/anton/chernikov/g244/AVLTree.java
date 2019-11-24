@@ -3,37 +3,35 @@ package com.anton.chernikov.g244;
 import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-/** Class realizing the functionality of AVL tree */
+/** The AVLTree class realizes the functionality of AVL tree */
 public class AVLTree<T> implements Collection<T> {
 
     private Node root;
     private int size = 0;
 
-    /** Method returning the number of elements in the tree */
+    /** Returns the number of elements in the tree */
     @Override
     public int size() {
         return size;
     }
 
-    /** Method checking the tree for emptiness */
+    /** Checks the tree for emptiness */
     @Override
     public boolean isEmpty() {
         return root == null;
     }
 
-    /** Method checking the existence of an element in the tree */
+    /** Checks the existence of an element in the tree */
     @Override
     public boolean contains(Object value) {
         Node foundElement = root;
-        while (foundElement != null)
-        {
-            if (value == foundElement.value)
-            {
+        while (foundElement != null) {
+            if (value == foundElement.value) {
                 return true;
             } else {
-                if (((Comparable)value).compareTo(foundElement.value) > 0)
-                {
+                if (((Comparable)value).compareTo(foundElement.value) > 0) {
                     foundElement = foundElement.rightChild;
                 } else {
                     foundElement = foundElement.leftChild;
@@ -48,7 +46,7 @@ public class AVLTree<T> implements Collection<T> {
         return new AVLTreeIterator();
     }
 
-    /** Method returning an array converted from a tree */
+    /** Returns an array converted from a tree */
     @Override
     public Object[] toArray() {
         Object[] result = new Object[size()];
@@ -59,7 +57,7 @@ public class AVLTree<T> implements Collection<T> {
         return result;
     }
 
-    /** Method adding tree elements to an array */
+    /** Adds tree elements to an array */
     @Override
     public <T1> T1[] toArray(T1[] a) {
         Iterator<T> iterator = iterator();
@@ -77,7 +75,7 @@ public class AVLTree<T> implements Collection<T> {
         return a;
     }
 
-    /** Method removing a value from a tree */
+    /** Removes a value from a tree */
     @Override
     public boolean remove(Object value) {
         if (contains(value)) {
@@ -88,7 +86,7 @@ public class AVLTree<T> implements Collection<T> {
         return false;
     }
 
-    /** Method checking for the existence of elements from the collection */
+    /** Checks for the existence of elements from the collection */
     @Override
     public boolean containsAll(Collection<?> c) {
         for (Object value : c) {
@@ -99,7 +97,7 @@ public class AVLTree<T> implements Collection<T> {
         return true;
     }
 
-    /** Method adding all elements from the tree that are in the collection */
+    /** Adds all elements from the tree that are in the collection */
     @Override
     public boolean addAll(Collection<? extends T> c) {
         for (T value : c) {
@@ -113,7 +111,7 @@ public class AVLTree<T> implements Collection<T> {
         return true;
     }
 
-    /** Method removing all elements from the tree that are in the collection */
+    /** Removes all elements from the tree that are in the collection */
     @Override
     public boolean removeAll(Collection<?> c) {
         for (Object value : c) {
@@ -127,7 +125,7 @@ public class AVLTree<T> implements Collection<T> {
         return true;
     }
 
-    /** Method of removing all elements from the tree, except those in the collection */
+    /** Removes all elements from the tree, except those in the collection */
     @Override
     public boolean retainAll(Collection<?> c) {
         for (Object value : c) {
@@ -143,13 +141,13 @@ public class AVLTree<T> implements Collection<T> {
         return true;
     }
 
-    /** Method removing all elements from the tree */
+    /** Removes all elements from the tree */
     @Override
     public void clear() {
         root = null;
     }
 
-    /** Method adding a value from a tree */
+    /** Adds a value from a tree */
     @Override
     public boolean add(T value)
     {
@@ -165,12 +163,12 @@ public class AVLTree<T> implements Collection<T> {
         return true;
     }
 
-    /** Method that returns the maximum number of nodes from this node to the leaf */
+    /** Returns the maximum number of nodes from this node to the leaf */
     private int height(Node node) {
         return (node == null) ? 0 : node.height;
     }
 
-    /** Class describing the functionality of the AVL tree element */
+    /** The Node class describes the functionality of the AVL tree element */
     private class Node {
 
         private T value;
@@ -182,19 +180,19 @@ public class AVLTree<T> implements Collection<T> {
             this.value = value;
         }
 
-        /** Method updating height */
+        /** Updates height */
         private void updateHeight() {
             int heightLeft = height(this.leftChild);
             int heightRight = height(this.rightChild);
             this.height = ((heightLeft > heightRight) ? heightLeft : heightRight) + 1;
         }
 
-        /** Method returning the difference between the height of the right and left nodes */
+        /** Returns the difference between the height of the right and left nodes */
         private int balanceFactor() {
             return height(this.rightChild) - height(this.leftChild);
         }
 
-        /** Method performing rotate to left around this node */
+        /** Performs rotate to left around this node */
         private Node rotateLeft() {
             Node pivot = this.rightChild;
             this.rightChild = pivot.leftChild;
@@ -204,7 +202,7 @@ public class AVLTree<T> implements Collection<T> {
             return pivot;
         }
 
-        /** Method performing rotate to right around this node */
+        /** Performs rotate to right around this node */
         private Node rotateRight() {
             Node pivot = this.leftChild;
             this.leftChild = pivot.rightChild;
@@ -214,7 +212,7 @@ public class AVLTree<T> implements Collection<T> {
             return pivot;
         }
 
-        /** Method balancing this node */
+        /** Balances this node */
         private Node balance() {
             this.updateHeight();
             if (this.balanceFactor() == 2)
@@ -236,7 +234,7 @@ public class AVLTree<T> implements Collection<T> {
             return this;
         }
 
-        /** Method iteratively adding a node to the tree */
+        /** Iteratively adds a node to the tree */
         private boolean addElement(T value) {
             if (!value.equals(this.value)) {
                 if (((Comparable)this.value).compareTo(value) < 0) {
@@ -264,7 +262,7 @@ public class AVLTree<T> implements Collection<T> {
             return true;
         }
 
-        /** Method removing this node from the tree */
+        /** Removes this node from the tree */
         private Node removeElement() {
             if (this.leftChild != null) {
                 if (this.rightChild != null) {
@@ -287,7 +285,7 @@ public class AVLTree<T> implements Collection<T> {
             return this.rightChild;
         }
 
-        /** Method finding the node by value and removing it from the tree */
+        /** Finds the node by value and removing it from the tree */
         private Node removeElement(Object value) {
             if (value.equals(this.value)) {
                 return this.removeElement();
@@ -307,7 +305,7 @@ public class AVLTree<T> implements Collection<T> {
         }
     }
 
-    /** Class describing iterator AVL tree */
+    /** The AVLTreeIterator class describes iterator AVL tree */
     private class AVLTreeIterator implements Iterator<T> {
 
         private ArrayDeque<T> elements;
@@ -318,7 +316,7 @@ public class AVLTree<T> implements Collection<T> {
             addElement(root);
         }
 
-        /** Method filling queue with elements from tree by in-order traversal */
+        /** Fills queue with elements from tree by in-order traversal */
         private void addElement(Node node) {
             if (node == null) {
                 return;
@@ -328,36 +326,41 @@ public class AVLTree<T> implements Collection<T> {
             addElement(node.rightChild);
         }
 
-        /** Auxiliary method removing odd elements */
-        private void updateElements() {
-            for (T current : elements) {
-                if (!contains(current)) {
-                    elements.remove(current);
-                }
-            }
-        }
-
         /** {@inheritDoc} */
         @Override
         public boolean hasNext() {
-            updateElements();
-            return !elements.isEmpty();
+            if (elements.isEmpty()) {
+                return false;
+            }
+            if (!contains(elements.peekFirst())) {
+                elements.pollFirst();
+                return hasNext();
+            }
+            return true;
         }
 
         /** {@inheritDoc} */
         @Override
         public T next() {
-            updateElements();
-            bufferedValue = elements.peekFirst();
-            return elements.pollFirst();
+            if (elements.isEmpty()) {
+                throw new NoSuchElementException();
+            }
+            if (!contains(elements.peekFirst())) {
+                elements.pollFirst();
+                return next();
+            }
+            return bufferedValue = elements.pollFirst();
         }
 
         /** {@inheritDoc} */
         @Override
         public void remove() {
-            updateElements();
-            AVLTree.this.remove(bufferedValue);
-            next();
+            if (bufferedValue != null && contains(bufferedValue)) {
+                AVLTree.this.remove(bufferedValue);
+                bufferedValue = null;
+            } else {
+                throw new IllegalStateException();
+            }
         }
     }
 }
