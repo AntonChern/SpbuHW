@@ -2,12 +2,7 @@ module Task2_5 where
 
 import Prelude
 
-sum :: [Integer] -> [Integer] -> [Integer] -> [Integer]
-sum [] [] [] = []
-sum [x] [] [] = [x]
-sum [] [y] [] = [y]
-sum [] [] [z] = [z]
-sum [] (y:ys) (z:zs) = (y + z) : sum [] ys zs
-sum (x:xs) [] (z:zs) = (x + z) : sum xs [] zs
-sum (x:xs) (y:ys) [] = (x + y) : sum xs ys []
-sum (x:xs) (y:ys) (z:zs) = (x + y + z) : sum xs ys zs
+sum3 :: [Int] -> [Int] -> [Int] -> [Int]
+sum3 l1 l2 l3 = zipWith3 (\x y z -> x + y + z) (expand l1) (expand l2) (expand l3)
+    where expand list = list ++ replicate (mlen - length list) 0
+          mlen = maximum [length l1, length l2, length l3]
