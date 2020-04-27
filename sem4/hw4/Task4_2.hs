@@ -24,9 +24,7 @@ doLoop list = do
                 newList <- doRemove list value
                 doLoop newList
         3 -> do
-                putStr "["
-                doPrint list
-                putStrLn "]"
+                putStrLn $ show list
                 doLoop list
         _ -> doLoop list
 
@@ -44,14 +42,5 @@ doRemove list element
     | element == cur = return rest
     | otherwise = do newRest <- doRemove rest element
                      return (cur:newRest)
-    where cur = head list
-          rest = tail list
-
-doPrint :: [Int] -> IO ()
-doPrint list
-    | list == [] = return ()
-    | length list == 1 = putStr (show cur)
-    | otherwise = do putStr (show cur ++ ",")
-                     doPrint rest
     where cur = head list
           rest = tail list
