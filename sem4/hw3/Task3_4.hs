@@ -2,11 +2,11 @@ module Task3_4 where
 
 import Prelude
 
-corrBrackets :: [Char] -> [Char]
-corrBrackets' :: [Char] -> [Int] -> [Char]
+corrBrackets :: [Char] -> Bool
+corrBrackets' :: [Char] -> [Int] -> Bool
 corrBrackets str = corrBrackets' str []
-corrBrackets' [] [] = "Correct"
-corrBrackets' [] _ = "Incorrect"
+corrBrackets' [] [] = True
+corrBrackets' [] _ = False
 corrBrackets' (curr:str) result = corrBrackets' str (if elem curr "()[]{}"
                                                      then if  prev > 0 && ibracket + prev == 0
                                                           then tail result
@@ -20,3 +20,9 @@ corrBrackets' (curr:str) result = corrBrackets' str (if elem curr "()[]{}"
                                                        ']' -> -2
                                                        '{' -> 3
                                                        '}' -> -3
+
+test1 :: Bool
+test1 = corrBrackets "({}[])" == True
+
+test2 :: Bool
+test2 = corrBrackets "]({)(})[" == False
