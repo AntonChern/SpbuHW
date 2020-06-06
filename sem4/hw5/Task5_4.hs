@@ -49,12 +49,14 @@ diff (Branch l operand r) = Branch (diff l) operand (diff r)
 
 reduce :: BinTree String -> BinTree String
 reduce (Leaf m) = Leaf m
+reduce (Branch (Leaf "x") "+" (Leaf "x")) = Branch (Leaf "2") "*" (Leaf "x")
 reduce (Branch (Leaf "1") "*" r) = reduce r
 reduce (Branch l "*" (Leaf "1")) = reduce l
 reduce (Branch (Leaf "0") "*" _) = Leaf "0"
 reduce (Branch _ "*" (Leaf "0")) = Leaf "0"
 reduce (Branch (Leaf "0") "+" r) = reduce r
-reduce (Branch l "+" (Leaf "0")) = reduce lreduce (Branch (Leaf "0") "-" (Leaf m)) = Leaf ("-" ++ m)
+reduce (Branch l "+" (Leaf "0")) = reduce l
+reduce (Branch (Leaf "0") "-" (Leaf m)) = Leaf ("-" ++ m)
 reduce (Branch (Leaf "0") "-" (Branch l "-" r)) = reduce $ Branch r "-" l
 reduce (Branch l "-" (Leaf "0")) = reduce l
 reduce (Branch l "/" (Leaf "1")) = reduce l
@@ -63,3 +65,9 @@ reduce (Branch l operand r) = if newL == l && newR == r then Branch newL operand
                                                         else reduce (Branch newL operand newR)
                               where newL = reduce l
                                     newR = reduce r
+
+test1 :: Bool
+test1 = derivative "x+x*x" == "(1+(2*x))"
+
+test2 :: Bool
+test2 = derivative "1/x" == "(-1/(x*x))"
